@@ -1,12 +1,10 @@
-import customtkinter
-
-customtkinter.set_appearance_mode('System')
-customtkinter.set_default_color_theme('green')
-
-root = customtkinter.CTk()
-root.title('KINNEMA')
-root.geometry('600x400')
+import flet as ft
 
 
+def main(page):
+    t = ft.Text(value="KINNEMA", color="blue", size=20)
+    page.controls.append(t)
+    page.update()
+   
 
-root.mainloop()
+ft.app(target=main)
