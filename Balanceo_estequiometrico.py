@@ -24,6 +24,14 @@ def main(page):
 
         page.update()
 
+    def limpiar_click(e):
+        input_reactivos.current.value = ""
+        input_productos.current.value = ""
+        ecuacion_balanceada.current.value = ""
+        reactivos_resultado.current.value = ""
+        productos_resultado.current.value = ""
+        page.update()
+
     def format_ecuacion_balanceada(reactivos, productos):
         reactivo_str = ' + '.join([f"{value}{key}" if value != 1 else f"{key}" for key, value in reactivos.items()])
         producto_str = ' + '.join([f"{value}{key}" if value != 1 else f"{key}" for key, value in productos.items()])
@@ -43,6 +51,7 @@ def main(page):
         ft.TextField(ref=input_reactivos, label="Reactivos"),
         ft.TextField(ref=input_productos, label="Productos"),
         ft.ElevatedButton("Balancear Ecuación", on_click=balancear_click),
+        ft.ElevatedButton("Limpiar", on_click=limpiar_click),  
         ft.Text(ref=ecuacion_balanceada),
         ft.Text("Reactivos:"),
         ft.Text(ref=reactivos_resultado),
