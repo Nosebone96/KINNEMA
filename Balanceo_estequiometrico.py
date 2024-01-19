@@ -7,7 +7,7 @@ def main(page):
     ecuacion_balanceada = ft.Ref[ft.Text]()
     reactivos_resultado = ft.Ref[ft.Text]()
     productos_resultado = ft.Ref[ft.Text]()
-
+    page.title = "Balanceo de ecuaciones estequiométricas"
     def balancear_click(e):
         reactivos = input_reactivos.current.value.split(',')
         productos = input_productos.current.value.split(',')
