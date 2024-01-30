@@ -14,15 +14,15 @@ def main(page):
     def verificar_formato(e):
         i = 0
         D = V = T = 0
-        if not isinstance(distancia.value.isdigit(), str) and distancia.value != '': 
+        if distancia.value.isdigit() and distancia.value != '': 
             D = float(distancia.value)
         else:
             i += 1
-        if not isinstance(velocidad.value.isdigit(), str) and velocidad.value != '': 
+        if velocidad.value.isdigit() and velocidad.value != '': 
              V = float(velocidad.value)
         else:
             i += 1
-        if not isinstance(tiempo.value.isdigit(), str) and tiempo.value != '': 
+        if tiempo.value.isdigit() and tiempo.value != '': 
             T = float(tiempo.value)
         else:
             i += 1
