@@ -1,9 +1,11 @@
 import flet as ft
 
 def main(page):
+    page.title = 'Movimiento Rectilíneo Uniforme'
     distancia = ft.TextField(label='DISTANCIA')
     velocidad = ft.TextField(label='VELOCIDAD')
     tiempo = ft.TextField(label='TIEMPO')
+    TextFields = ft.Column([distancia, velocidad, tiempo,], expand= True, spacing=40)
     
     def limpiar(e):
         distancia.value = ''
@@ -14,34 +16,50 @@ def main(page):
     def verificar_formato(e):
         i = 0
         D = V = T = 0
-        if distancia.value.isdigit() and distancia.value != '': 
+        try:
             D = float(distancia.value)
-        else:
+        except ValueError:
             i += 1
-        if velocidad.value.isdigit() and velocidad.value != '': 
-             V = float(velocidad.value)
-        else:
-            i += 1
-        if tiempo.value.isdigit() and tiempo.value != '': 
+        try:
             T = float(tiempo.value)
-        else:
+        except ValueError:
             i += 1
+        try:
+            V = float(velocidad.value)
+        except ValueError:
+            i += 1  
         if i > 1:
             return
         else:
             if distancia.value == '':
-                distancia.value = f'{T * V}'
+                distancia.value = f'{T * V}m'
             elif velocidad.value == '':
-                velocidad.value = f'{D / T}'
+                velocidad.value = f'{D / T}m/s'
             else:
-                tiempo.value = f'{D / V}'
+                tiempo.value = f'{D / V}s'
         page.update()        
+    
     page.add(
-        distancia,
-        velocidad,
-        tiempo,
-        ft.ElevatedButton('Calcular', on_click=verificar_formato),
-        ft.ElevatedButton('limpiar', on_click=limpiar)
+        ft.Container(TextFields, padding=100),
+        ft.Row([
+            ft.ElevatedButton(
+                'calcular',
+                on_click=verificar_formato,                
+                icon=ft.icons.CALCULATE,
+                style= ft.ButtonStyle(shape=ft.ContinuousRectangleBorder(radius=30),),
+                icon_color='green',
+                height= 50,
+                width= 150,
+                ),
+            ft.ElevatedButton('limpiar',
+                on_click=limpiar,
+                icon= ft.icons.CLEANING_SERVICES,
+                style= ft.ButtonStyle(shape=ft.ContinuousRectangleBorder(radius=30),),
+                height= 50,
+                width= 150,
+                icon_color="red",
+                ),
+            ], alignment= ft.MainAxisAlignment.CENTER, vertical_alignment= ft.CrossAxisAlignment.START, height=50,)
     )
 
 ft.app(target=main)
