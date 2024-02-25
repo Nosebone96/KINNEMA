@@ -1,10 +1,28 @@
 import flet as ft
+import importlib
 
+def main(page: ft.Page):
+    page.title = 'KINNEMA'
+    def new_page_MRU(e):
+        page.controls.clear()
+        page.go(importlib.import_module('MRU').main_MRU(page))
 
-def main(page):
-    t = ft.Text(value="KINNEMA", color="blue", size=20)
-    page.controls.append(t)
-    page.update()
-   
+    def new_page_Balanceo_Estequiometrico(e):
+        page.controls.clear()
+        page.go(importlib.import_module('Balanceo_estequiometrico').main(page))
+    
+    page.add(
+        ft.ElevatedButton(
+            'ir a movimiento Rectilíneo Uniforme',
+            on_click=new_page_MRU,
+        ),
+        ft.ElevatedButton(
+            'ir a Balanceo Estequiometrico',
+            on_click= new_page_Balanceo_Estequiometrico
+        )
+        
+    )
+    
 
-ft.app(target=main)
+if __name__ == '__main__':
+    ft.app(target=main)

@@ -1,11 +1,17 @@
 import flet as ft
+import importlib
 
-def main(page):
+
+def main_MRU(page):
     page.title = 'Movimiento Rectilíneo Uniforme'
     distancia = ft.TextField(label='DISTANCIA')
     velocidad = ft.TextField(label='VELOCIDAD')
     tiempo = ft.TextField(label='TIEMPO')
     TextFields = ft.Column([distancia, velocidad, tiempo,], expand= True, spacing=40)
+    
+    def Volver_main(e):
+        page.controls.clear()
+        page.go(importlib.import_module('Menu_principal').main(page))
     
     def limpiar(e):
         distancia.value = ''
@@ -37,10 +43,10 @@ def main(page):
                 velocidad.value = f'{D / T}m/s'
             else:
                 tiempo.value = f'{D / V}s'
-        page.update()        
-    
+        page.update()
     page.add(
-        ft.Container(TextFields, padding=100),
+        importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),
+        ft.Container(TextFields, padding=80),
         ft.Row([
             ft.ElevatedButton(
                 'calcular',
@@ -62,4 +68,3 @@ def main(page):
             ], alignment= ft.MainAxisAlignment.CENTER, vertical_alignment= ft.CrossAxisAlignment.START, height=50,)
     )
 
-ft.app(target=main)
