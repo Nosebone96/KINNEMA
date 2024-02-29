@@ -60,7 +60,7 @@ def main_gases(page):
         if i > 1:
             return
         else:
-            # Ley de Boyle: P1 * V1 = P2 * V2
+            # Ley de Boyle
             if P1.value != '' and V1.value != '' and P2.value == '' and V2.value != '':
                 P2.value = f'{(p1 * v1) / v2} atm'
             elif P1.value == '' and V1.value != '' and P2.value != '' and V2.value != '':
@@ -70,7 +70,7 @@ def main_gases(page):
             elif P1.value != '' and V1.value != '' and P2.value != '' and V2.value == '':
                 V2.value = f'{(p1 * v1) / p2} L'
             
-            # Ley de Charles: V1 / T1 = V2 / T2
+            # Ley de Charles
             elif V1.value != '' and T1.value != '' and V2.value == '' and T2.value != '':
                 V2.value = f'{(v1 * t2) / t1} L'
             elif V1.value == '' and T1.value != '' and V2.value != '' and T2.value != '':
@@ -80,7 +80,7 @@ def main_gases(page):
             elif V1.value != '' and T1.value != '' and V2.value != '' and T2.value == '':
                 T2.value = f'{(v2 * t1) / v1} K'
 
-            # Ley de Gay-Lussac: P1 / T1 = P2 / T2
+            # Ley de Gay-Lussac
             elif P1.value != '' and T1.value != '' and P2.value == '' and T2.value != '':
                 P2.value = f'{(p1 * t2) / t1} atm'
             elif P1.value == '' and T1.value != '' and P2.value != '' and T2.value != '':
@@ -90,7 +90,7 @@ def main_gases(page):
             elif P1.value != '' and T1.value != '' and P2.value != '' and T2.value == '':
                 T2.value = f'{(p2 * t1) / p1} K'
 
-             # Ley combinada de los gases: (P1 * V1) / T1 = (P2 * V2) / T2
+             # Ley combinada de los gases
             elif P1.value != '' and V1.value != '' and T1.value != '' and P2.value == '' and V2.value != '' and T2.value != '':
                 P2.value = f'{(p1 * v1 * t2) / (v2 * t1)} atm'
             elif P1.value == '' and V1.value != '' and T1.value != '' and P2.value != '' and V2.value != '' and T2.value != '':
