@@ -13,7 +13,7 @@ def main(page: ft.Page):
 
     def new_page_Gases_Ideales(e):
         page.controls.clear()
-        page.go(importlib.import_module('Gases_Ideales').main(page))
+        page.go(importlib.import_module('Gases_Ideales').main_gases(page))
     
     page.add(
         ft.ElevatedButton(
