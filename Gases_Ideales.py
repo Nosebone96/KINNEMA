@@ -13,7 +13,6 @@ def main_gases(page):
     T2 = ft.TextField(label="Temperatura 2")
     n = ft.TextField(label="Moles")
     TextFields = ft.Column([P1, P2, V1, V2, T1, T2, n], expand= True, spacing=40)
-
     def Volver_main(e):
         page.controls.clear()
         page.go(importlib.import_module('Menu_principal').main(page))
@@ -61,18 +60,64 @@ def main_gases(page):
         if i > 1:
             return
         else:
-            if P1.value == '' and V1.value != '' and P2.value != '' and V2.value != '':
-                p1 = f'{(p2 * v2)/v1} atm'
-            if P2.value == '' and V1.value != '' and P1.value != '' and V2.value != '':
-                p2 = f'{(p1 * v1)/v2} atm'
-            if V1.value == '' and P1.value != '' and P2.value != '' and V2.value != '':
-                v2 = f'{(p2 * v2)/p1} L'
-            if V2.value == '' and P1.value != '' and P2.value != '' and V1.value != '':
-                v2 = f'{(p1 * v1)/p2} L'
+            # Ley de Boyle: P1 * V1 = P2 * V2
+            if P1.value != '' and V1.value != '' and P2.value == '' and V2.value != '':
+                P2.value = f'{(p1 * v1) / v2} atm'
+            elif P1.value == '' and V1.value != '' and P2.value != '' and V2.value != '':
+                P1.value = f'{(p2 * v2) / v1} atm'
+            elif P1.value != '' and V1.value == '' and P2.value != '' and V2.value != '':
+                V1.value = f'{(p2 * v2) / p1} L'
+            elif P1.value != '' and V1.value != '' and P2.value != '' and V2.value == '':
+                V2.value = f'{(p1 * v1) / p2} L'
+            
+            # Ley de Charles: V1 / T1 = V2 / T2
+            elif V1.value != '' and T1.value != '' and V2.value == '' and T2.value != '':
+                V2.value = f'{(v1 * t2) / t1} L'
+            elif V1.value == '' and T1.value != '' and V2.value != '' and T2.value != '':
+                V1.value = f'{(v2 * t1) / t2} L'
+            elif V1.value != '' and T1.value == '' and V2.value != '' and T2.value != '':
+                T1.value = f'{(v1 * t2) / v2} K'
+            elif V1.value != '' and T1.value != '' and V2.value != '' and T2.value == '':
+                T2.value = f'{(v2 * t1) / v1} K'
 
-        page.update()
+            # Ley de Gay-Lussac: P1 / T1 = P2 / T2
+            elif P1.value != '' and T1.value != '' and P2.value == '' and T2.value != '':
+                P2.value = f'{(p1 * t2) / t1} atm'
+            elif P1.value == '' and T1.value != '' and P2.value != '' and T2.value != '':
+                P1.value = f'{(p2 * t1) / t2} atm'
+            elif P1.value != '' and T1.value == '' and P2.value != '' and T2.value != '':
+                T1.value = f'{(p1 * t2) / p2} K'
+            elif P1.value != '' and T1.value != '' and P2.value != '' and T2.value == '':
+                T2.value = f'{(p2 * t1) / p1} K'
 
-        page.add(
+             # Ley combinada de los gases: (P1 * V1) / T1 = (P2 * V2) / T2
+            elif P1.value != '' and V1.value != '' and T1.value != '' and P2.value == '' and V2.value != '' and T2.value != '':
+                P2.value = f'{(p1 * v1 * t2) / (v2 * t1)} atm'
+            elif P1.value == '' and V1.value != '' and T1.value != '' and P2.value != '' and V2.value != '' and T2.value != '':
+                P1.value = f'{(p2 * v2 * t1) / (v1 * t2)} atm'
+            elif P1.value != '' and V1.value == '' and T1.value != '' and P2.value != '' and V2.value != '' and T2.value != '':
+                V1.value = f'{(p2 * v2 * t1) / (p1 * t2)} L'
+            elif P1.value != '' and V1.value != '' and T1.value == '' and P2.value != '' and V2.value != '' and T2.value != '':
+                T1.value = f'{(p2 * v2 * t1) / (p1 * v1)} K°'
+            elif P1.value != '' and V1.value != '' and T1.value != '' and P2.value != '' and V2.value == '' and T2.value != '':
+                V2.value = f'{(p1 * v1 * t2) / (p2 * t1)} L'
+            elif P1.value != '' and V1.value != '' and T1.value != '' and P2.value != '' and V2.value != '' and T2.value == '':
+                T2.value = f'{(p1 * v1 * t2) / (p2 * v2)} K°'
+
+            #Ley general o ecuación de estado: P*V = n*R*T
+            R = 0.0821  
+        if P1.value == '' and V1.value != '' and n.value != '' and T1.value != '':
+            P1.value = f'{(N * R * t1) / v1} atm'
+        elif P1.value != '' and V1.value == '' and n.value != '' and T1.value != '':
+            V1.value = f'{(N * R * t1) / p1} L'
+        elif P1.value != '' and V1.value != '' and n.value == '' and T1.value != '':
+            n.value = f'{(p1 * v1) / (R * t1)} moles'
+        elif P1.value != '' and V1.value != '' and n.value != '' and T1.value == '':
+            T1.value = f'{(p1 * v1) / (N * R)} K'
+                
+    page.update()
+
+    page.add(
     importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),
     ft.Container(TextFields, padding=80),
     ft.Row([
@@ -96,5 +141,3 @@ def main_gases(page):
         ),
     ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.START, height=50)
 )
-
-
