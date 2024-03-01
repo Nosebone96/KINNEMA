@@ -12,5 +12,5 @@ def header_page(e, Volver_main) -> ft.Container:
                     on_click=Volver_main,
                 )
             ]
-        ), margin= ft.margin.only(top=30)
+        )
     )

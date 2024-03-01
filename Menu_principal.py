@@ -3,6 +3,7 @@ import importlib
 
 def main(page: ft.Page):
     page.title = 'KINNEMA'
+    page.padding = 30
     def new_page_MRU(e):
         page.controls.clear()
         page.go(importlib.import_module('MRU').main_MRU(page))
