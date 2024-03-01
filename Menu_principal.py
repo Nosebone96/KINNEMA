@@ -11,6 +11,10 @@ def main(page: ft.Page):
     def new_page_Balanceo_Estequiometrico(e):
         page.controls.clear()
         page.go(importlib.import_module('Balanceo_estequiometrico').main(page))
+
+    def new_page_Gases_Ideales(e):
+        page.controls.clear()
+        page.go(importlib.import_module('Gases_Ideales').main_gases(page))
     
     page.add(
         ft.ElevatedButton(
@@ -20,8 +24,11 @@ def main(page: ft.Page):
         ft.ElevatedButton(
             'ir a Balanceo Estequiometrico',
             on_click= new_page_Balanceo_Estequiometrico
+        ),
+        ft.ElevatedButton(
+            'ir a Gases Ideales',
+            on_click= new_page_Gases_Ideales
         )
-        
     )
     
 
