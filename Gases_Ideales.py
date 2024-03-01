@@ -1,8 +1,9 @@
 import flet as ft
 import importlib 
 
-def main_gases(page):
+def main_gases(page: ft.Page):
     page.title = "Gases Ideales"
+    page.scroll = ft.ScrollMode.ALWAYS
     P1 = ft.TextField(label='Presión 1')
     P2 = ft.TextField(label="Presión 2")
     V1 = ft.TextField(label="Volumen 1")
@@ -23,6 +24,7 @@ def main_gases(page):
         T1.value = ''
         T2.value = ''
         n.value = ''
+        page.update()
 
     def calcular(e):
         i = 0
@@ -104,16 +106,16 @@ def main_gases(page):
 
             #Ley general o ecuación de estado: P*V = n*R*T
             R = 0.0821  
-        if P1.value == '' and V1.value != '' and n.value != '' and T1.value != '':
-            P1.value = f'{(N * R * t1) / v1} atm'
-        elif P1.value != '' and V1.value == '' and n.value != '' and T1.value != '':
-            V1.value = f'{(N * R * t1) / p1} L'
-        elif P1.value != '' and V1.value != '' and n.value == '' and T1.value != '':
-            n.value = f'{(p1 * v1) / (R * t1)} moles'
-        elif P1.value != '' and V1.value != '' and n.value != '' and T1.value == '':
-            T1.value = f'{(p1 * v1) / (N * R)} K'
+            if P1.value == '' and V1.value != '' and n.value != '' and T1.value != '':
+                P1.value = f'{(N * R * t1) / v1} atm'
+            elif P1.value != '' and V1.value == '' and n.value != '' and T1.value != '':
+                V1.value = f'{(N * R * t1) / p1} L'
+            elif P1.value != '' and V1.value != '' and n.value == '' and T1.value != '':
+                n.value = f'{(p1 * v1) / (R * t1)} moles'
+            elif P1.value != '' and V1.value != '' and n.value != '' and T1.value == '':
+                T1.value = f'{(p1 * v1) / (N * R)} K'
                 
-    page.update()
+        page.update()
 
     page.add(
     importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),
