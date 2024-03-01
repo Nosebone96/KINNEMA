@@ -10,7 +10,7 @@ def main_gases(page):
     T1 = ft.TextField(label="Temperatura 1")
     T2 = ft.TextField(label="Temperatura 2")
     n = ft.TextField(label="Moles")
-    TextFields = ft.Column([P1, P2, V1, V2, T1, T2, n], expand= True, spacing=40)
+    TextFields = ft.Column([P1, P2, V1, V2, T1, T2, n], expand= True, spacing=30)
     def Volver_main(e):
         page.controls.clear()
         page.go(importlib.import_module('Menu_principal').main(page))
