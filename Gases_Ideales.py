@@ -3,8 +3,6 @@ import importlib
 
 def main_gases(page):
     page.title = "Gases Ideales"
-    page.controls.clear()
-    page.go(importlib.import_module('Menu_principal').main(page))
     P1 = ft.TextField(label='Presión 1')
     P2 = ft.TextField(label="Presión 2")
     V1 = ft.TextField(label="Volumen 1")
