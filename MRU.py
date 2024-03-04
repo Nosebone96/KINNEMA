@@ -4,9 +4,9 @@ import importlib
 
 def main_MRU(page):
     page.title = 'Movimiento Rectilíneo Uniforme'
-    distancia = ft.TextField(label='DISTANCIA')
-    velocidad = ft.TextField(label='VELOCIDAD')
-    tiempo = ft.TextField(label='TIEMPO')
+    distancia = ft.TextField(label='DISTANCIA', suffix_text='m')
+    velocidad = ft.TextField(label='VELOCIDAD', suffix_text='m/s')
+    tiempo = ft.TextField(label='TIEMPO', suffix_text='s')
     TextFields = ft.Column([distancia, velocidad, tiempo,], expand= True, spacing=40)
     
     def Volver_main(e):
@@ -38,11 +38,11 @@ def main_MRU(page):
             return
         else:
             if distancia.value == '':
-                distancia.value = f'{T * V}m'
+                distancia.value = f'{T * V}'
             elif velocidad.value == '':
-                velocidad.value = f'{D / T}m/s'
+                velocidad.value = f'{D / T}'
             else:
-                tiempo.value = f'{D / V}s'
+                tiempo.value = f'{D / V}'
         page.update()
     page.add(
         importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),

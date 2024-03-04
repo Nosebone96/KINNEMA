@@ -6,11 +6,11 @@ def main_MRUV(page: ft.Page):
     def Volver_main(e):
         page.controls.clear()
         page.go(importlib.import_module('Menu_principal').main(page))
-    Distancia = ft.TextField(label='Distancia')
-    Aceleracion = ft.TextField(label='Aceleracion')
-    Tiempo = ft.TextField(label='Tiempo')
-    V_inicial = ft.TextField(label='Velocidad Inicial')
-    V_final = ft.TextField(label='Velocidad Final')
+    Distancia = ft.TextField(label='Distancia', suffix_text='m')
+    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²')
+    Tiempo = ft.TextField(label='Tiempo', suffix_text='s')
+    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s')
+    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s')
     textfields = ft.Container(
         content= ft.Column(
             controls=(
@@ -104,15 +104,8 @@ def main_MRUV(page: ft.Page):
                     velocidad_f = float(V_final.value)
                 except:
                      print('no se calcula la velocidad final')
-        
             n_r += 1
-        Distancia.value += "m"
-        Tiempo.value += "s"
-        V_inicial.value += "m/s"
-        V_final.value += "m/s"
-        Aceleracion.value += "m/s²"
         page.update()
-        Limpiar()
             
     def Limpiar(e):
         Distancia.value = ""
