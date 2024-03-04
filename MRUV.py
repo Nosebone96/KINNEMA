@@ -1,5 +1,6 @@
 import flet as ft
 import importlib
+from App_important_controls import header_page, Buttons
 import math as m
 
 def main_MRUV(page: ft.Page):
@@ -116,7 +117,7 @@ def main_MRUV(page: ft.Page):
         page.update()
 
     page.add(
-        importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),
+        header_page(Volver_main=Volver_main, e=ft.Container),
         textfields,
-        importlib.import_module('App_important_controls').Buttons(ft.Container, Calcular, Limpiar),
+        Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar)
     )

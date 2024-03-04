@@ -1,6 +1,6 @@
 import flet as ft
 import importlib
-
+from App_important_controls import header_page, Buttons
 
 def main_MRU(page):
     page.title = 'Movimiento Rectilíneo Uniforme'
@@ -13,13 +13,13 @@ def main_MRU(page):
         page.controls.clear()
         page.go(importlib.import_module('Menu_principal').main(page))
     
-    def limpiar(e):
+    def Limpiar(e):
         distancia.value = ''
         velocidad.value = ''
         tiempo.value = ''
         page.update()
 
-    def verificar_formato(e):
+    def Calcular(e):
         i = 0
         D = V = T = 0
         try:
@@ -45,26 +45,8 @@ def main_MRU(page):
                 tiempo.value = f'{D / V}'
         page.update()
     page.add(
-        importlib.import_module('App_important_controls').header_page(ft.Container, Volver_main),
+        header_page(Volver_main=Volver_main, e=ft.Container),
         ft.Container(TextFields, padding=80),
-        ft.Row([
-            ft.ElevatedButton(
-                'calcular',
-                on_click=verificar_formato,                
-                icon=ft.icons.CALCULATE,
-                style= ft.ButtonStyle(shape=ft.ContinuousRectangleBorder(radius=30),),
-                icon_color='green',
-                height= 50,
-                width= 150,
-                ),
-            ft.ElevatedButton('limpiar',
-                on_click=limpiar,
-                icon= ft.icons.CLEANING_SERVICES,
-                style= ft.ButtonStyle(shape=ft.ContinuousRectangleBorder(radius=30),),
-                height= 50,
-                width= 150,
-                icon_color="red",
-                ),
-            ], alignment= ft.MainAxisAlignment.CENTER, vertical_alignment= ft.CrossAxisAlignment.START, height=50,)
+        Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar)
     )
 
