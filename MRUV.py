@@ -1,12 +1,13 @@
 import flet as ft
-import importlib
+
 from App_important_controls import header_page, Buttons
 import math as m
 
 def main_MRUV(page: ft.Page):
     def Volver_main(e):
         page.controls.clear()
-        page.go(importlib.import_module('Menu_principal').main(page))
+        import Menu_principal
+        page.go(Menu_principal.main(page))
     Distancia = ft.TextField(label='Distancia', suffix_text='m')
     Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²')
     Tiempo = ft.TextField(label='Tiempo', suffix_text='s')

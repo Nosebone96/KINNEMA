@@ -1,8 +1,7 @@
 import flet as ft
-import importlib
 from App_important_controls import header_page, Buttons
 
-def main_MRU(page):
+def main_MRU(page) -> ft.Page:
     page.title = 'Movimiento Rectilíneo Uniforme'
     distancia = ft.TextField(label='DISTANCIA', suffix_text='m')
     velocidad = ft.TextField(label='VELOCIDAD', suffix_text='m/s')
@@ -11,7 +10,8 @@ def main_MRU(page):
     
     def Volver_main(e):
         page.controls.clear()
-        page.go(importlib.import_module('Menu_principal').main(page))
+        import Menu_principal
+        page.go(Menu_principal.main(page))
     
     def Limpiar(e):
         distancia.value = ''

@@ -1,14 +1,14 @@
 import flet as ft
 from chempy import balance_stoichiometry
-import importlib
 from App_important_controls import header_page, Buttons
 
 
-def main(page: ft.Page):
+def Balaceo_estequiometrico_main(page: ft.Page) -> ft.Page:
     page.title = "Balanceo de ecuaciones estequiométricas"
     def Volver_main(e):
         page.controls.clear()
-        page.go(importlib.import_module('Menu_principal').main(page))
+        import Menu_principal
+        page.go(Menu_principal.main(page))
     
     input_reactivos = ft.Ref[ft.TextField]()
     input_productos = ft.Ref[ft.TextField]()
