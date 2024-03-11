@@ -12,7 +12,7 @@ def header_page(e, Volver_main) -> ft.Container:
                     on_click=Volver_main,
                 )
             ]
-        )
+        ), margin= ft.margin.only(bottom=30, top=25)
     )
     
 def Buttons(e, Calcular, Limpiar) -> ft.Container:
