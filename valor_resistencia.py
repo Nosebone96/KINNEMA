@@ -67,33 +67,35 @@ def main_valor_resistencia(page: ft.Page) -> ft.Page:
         page.update()
     
     def calcular(e):
-        # Get the selected values from the dropdowns
-        resistance_value_1 = resistance_values[banda1.value]
-        resistance_value_2 = resistance_values[banda2.value]
-        multiplicador_value = resistance_values[multiplicador.value]
-        #tolerancia_value = resistance_values[tolerancia.value]
+        try:
+            resistance_value_1 = resistance_values[banda1.value]
+            resistance_value_2 = resistance_values[banda2.value]
+            multiplicador_value = resistance_values[multiplicador.value]
+            #tolerancia_value = resistance_values[tolerancia.value]
 
-        # Calculate the resistance value based on the selected options
-        resistance_value = resistance_value_1 * 10 + resistance_value_2
-        resistance_value *= 10 ** multiplicador_value
-        # Display the resistance value
-        resultado.value = f"el valor de la resistencia es: {resistance_value}Ω"
-        porcentaje_tolerancia: float
-        if tolerancia.value == 'plateado':
-            porcentaje_tolerancia = 10
-        elif tolerancia.value == 'dorado':
-            porcentaje_tolerancia = 5
-        elif tolerancia.value == 'marron':
-            porcentaje_tolerancia = 1
-        elif tolerancia.value == 'rojo':
-            porcentaje_tolerancia = 5
-        elif tolerancia.value == 'verde':
-            porcentaje_tolerancia = 0.5
-        elif tolerancia.value == 'azul':
-            porcentaje_tolerancia = 0.25
-        elif tolerancia.value == 'violeta':
-            porcentaje_tolerancia = 0.1
-        valor_tolerancia.value = f'la tolerancia (±{porcentaje_tolerancia}%) va desde {resistance_value - resistance_value * (porcentaje_tolerancia / 100)}Ω hasta {resistance_value + resistance_value * (porcentaje_tolerancia / 100)}Ω'
+            # Calculate the resistance value based on the selected options
+            resistance_value = resistance_value_1 * 10 + resistance_value_2
+            resistance_value *= 10 ** multiplicador_value
+            # Display the resistance value
+            resultado.value = f"el valor de la resistencia es: {resistance_value}Ω"
+            porcentaje_tolerancia: float
+            if tolerancia.value == 'plateado':
+                porcentaje_tolerancia = 10
+            elif tolerancia.value == 'dorado':
+                porcentaje_tolerancia = 5
+            elif tolerancia.value == 'marron':
+                porcentaje_tolerancia = 1
+            elif tolerancia.value == 'rojo':
+                porcentaje_tolerancia = 5
+            elif tolerancia.value == 'verde':
+                porcentaje_tolerancia = 0.5
+            elif tolerancia.value == 'azul':
+                porcentaje_tolerancia = 0.25
+            elif tolerancia.value == 'violeta':
+                porcentaje_tolerancia = 0.1
+            valor_tolerancia.value = f'la tolerancia (±{porcentaje_tolerancia}%) va desde {resistance_value - resistance_value * (porcentaje_tolerancia / 100)}Ω hasta {resistance_value + resistance_value * (porcentaje_tolerancia / 100)}Ω'
+        except ValueError:
+            print('ha ocurrido un error en el formato de las bandas :(')
         page.update()
     def limpiar(e):
         color_banda_1.bgcolor = colors.BROWN_200
@@ -159,7 +161,9 @@ def main_valor_resistencia(page: ft.Page) -> ft.Page:
     page.add(
         header_page(Volver_main=Volver_main, e=ft.Container),
         dropdowns,
+        ft.Divider(height=50, thickness=0),
         draw_resistance,
+        ft.Divider(height=50, thickness=0),
         Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
         resultado,
         valor_tolerancia

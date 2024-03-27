@@ -1,6 +1,6 @@
 import flet as ft
 
-from App_important_controls import header_page, Buttons
+from App_important_controls import header_page, Buttons, cambio_Textfield
 import math as m
 
 def main_MRUV(page: ft.Page):
@@ -8,11 +8,12 @@ def main_MRUV(page: ft.Page):
         page.controls.clear()
         import Menu_principal
         page.go(Menu_principal.main(page))
-    Distancia = ft.TextField(label='Distancia', suffix_text='m')
-    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²')
-    Tiempo = ft.TextField(label='Tiempo', suffix_text='s')
-    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s')
-    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s')
+        
+    Distancia = ft.TextField(label='Distancia', suffix_text='m', on_change=cambio_Textfield)
+    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²', on_change=cambio_Textfield)
+    Tiempo = ft.TextField(label='Tiempo', suffix_text='s', on_change=cambio_Textfield)
+    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s', on_change=cambio_Textfield)
+    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s', on_change=cambio_Textfield)
     textfields = ft.Container(
         content= ft.Column(
             controls=(
@@ -26,22 +27,27 @@ def main_MRUV(page: ft.Page):
             distancia = float(Distancia.value)
         except ValueError:
             i+=1
+            Distancia.value = ''
         try:
             aceleración = float(Aceleracion.value)
         except ValueError:
             i+=1
+            Aceleracion.value = ''
         try:
             tiempo = float(Tiempo.value)
         except ValueError:
             i+=1
+            Tiempo.value = ''
         try:
             velocidad_i = float(V_inicial.value)
         except ValueError:
             i+=1
+            V_inicial.value = ''
         try:
             velocidad_f = float(V_final.value)
         except ValueError:
             i+=1
+            V_final.value = ''
         n_r = 0
         while (Distancia.value == "" or Aceleracion.value == "" or Tiempo.value == "" or V_inicial.value == "" or V_final.value == "") or n_r <= 3:
             # para la velocidad Inicial

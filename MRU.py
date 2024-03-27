@@ -1,11 +1,11 @@
 import flet as ft
-from App_important_controls import header_page, Buttons
+from App_important_controls import header_page, Buttons, cambio_Textfield
 
 def main_MRU(page) -> ft.Page:
     page.title = 'Movimiento Rectilíneo Uniforme'
-    distancia = ft.TextField(label='DISTANCIA', suffix_text='m')
-    velocidad = ft.TextField(label='VELOCIDAD', suffix_text='m/s')
-    tiempo = ft.TextField(label='TIEMPO', suffix_text='s')
+    distancia = ft.TextField(label='DISTANCIA', suffix_text='m', on_change=cambio_Textfield)
+    velocidad = ft.TextField(label='VELOCIDAD', suffix_text='m/s', on_change=cambio_Textfield)
+    tiempo = ft.TextField(label='TIEMPO', suffix_text='s',on_change=cambio_Textfield)
     TextFields = ft.Column([distancia, velocidad, tiempo,], expand= True, spacing=40)
     
     def Volver_main(e):

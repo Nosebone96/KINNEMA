@@ -12,7 +12,7 @@ def header_page(e, Volver_main) -> ft.Container:
                     on_click=Volver_main,
                 )
             ]
-        ), margin= ft.margin.only(bottom=30, top=25)
+        ), margin= ft.margin.only(bottom=30, top=30)
     )
     
 def Buttons(e, Calcular, Limpiar) -> ft.Container:
@@ -40,4 +40,14 @@ def Buttons(e, Calcular, Limpiar) -> ft.Container:
             ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.START, height=50)
         
         )
+def cambio_Textfield(e):
+        Textfields = e.control
+        try:
+            float(Textfields.value)
+            Textfields.border_color = ft.TextField.border_color
+        except ValueError:
+            Textfields.border_color = ft.colors.RED
+        if Textfields.value == '':
+            Textfields.border_color = ft.TextField.border_color
+        Textfields.update()
     

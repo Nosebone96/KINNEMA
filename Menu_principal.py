@@ -1,4 +1,5 @@
 from MRU import main_MRU
+from Energia_mecanica import main_energia_mecanica
 from Balanceo_estequiometrico import Balaceo_estequiometrico_main
 from MRUV import main_MRUV
 from Gases_Ideales import main_gases
@@ -8,6 +9,7 @@ import flet as ft
 
 def main(page: ft.Page) -> ft.Page:
     page.title = 'KINNEMA'
+    page.scroll = ft.ScrollMode.ALWAYS
     page.padding = 15
     
     def new_page_MRU(e):
@@ -30,13 +32,17 @@ def main(page: ft.Page) -> ft.Page:
         page.controls.clear()
         page.go(main_valor_resistencia(page))
     
+    def new_page_energia_mecanica(e):
+        page.controls.clear()
+        page.go(main_energia_mecanica(page))
+    
     page.add(
         ft.ElevatedButton(
             'ir a movimiento Rectilíneo Uniforme',
             on_click=new_page_MRU,
         ),
         ft.ElevatedButton(
-            'ir a Balanceo Estequiometrico',
+            'ir a Balanceo Estequiometricoo',
             on_click= new_page_Balanceo_Estequiometrico
         ),
         ft.ElevatedButton(
@@ -50,6 +56,10 @@ def main(page: ft.Page) -> ft.Page:
         ft.ElevatedButton(
             'valor de una resistencia',
             on_click=new_page_Valor_resistencia
+        ),
+        ft.ElevatedButton(
+            'Energía mecanica',
+            on_click= new_page_energia_mecanica
         ),
     )
     

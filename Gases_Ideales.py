@@ -3,7 +3,6 @@ import importlib
 
 def main_gases(page: ft.Page):
     page.title = "Gases Ideales"
-    page.scroll = ft.ScrollMode.ALWAYS
     P1 = ft.TextField(label='Presión 1')
     P2 = ft.TextField(label="Presión 2")
     V1 = ft.TextField(label="Volumen 1")
