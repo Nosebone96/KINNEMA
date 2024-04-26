@@ -1,6 +1,6 @@
 import flet as ft
 
-from App_important_controls import header_page, Buttons, cambio_Textfield
+from App_important_controls import controls
 import math as m
 
 def main_MRUV(page: ft.Page):
@@ -9,11 +9,11 @@ def main_MRUV(page: ft.Page):
         import Menu_principal
         page.go(Menu_principal.main(page))
         
-    Distancia = ft.TextField(label='Distancia', suffix_text='m', on_change=cambio_Textfield)
-    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²', on_change=cambio_Textfield)
-    Tiempo = ft.TextField(label='Tiempo', suffix_text='s', on_change=cambio_Textfield)
-    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s', on_change=cambio_Textfield)
-    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s', on_change=cambio_Textfield)
+    Distancia = ft.TextField(label='Distancia', suffix_text='m', on_change=controls.cambio_Textfield)
+    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²', on_change=controls.cambio_Textfield)
+    Tiempo = ft.TextField(label='Tiempo', suffix_text='s', on_change=controls.cambio_Textfield)
+    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s', on_change=controls.cambio_Textfield)
+    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s', on_change=controls.cambio_Textfield)
     textfields = ft.Container(
         content= ft.Column(
             controls=(
@@ -124,7 +124,7 @@ def main_MRUV(page: ft.Page):
         page.update()
 
     page.add(
-        header_page(Volver_main=Volver_main, e=ft.Container),
+        controls.header_page(Volver_main=Volver_main, e=ft.Container),
         textfields,
-        Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar)
+        controls.Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar)
     )

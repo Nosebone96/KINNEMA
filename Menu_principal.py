@@ -42,7 +42,7 @@ def main(page: ft.Page) -> ft.Page:
             on_click=new_page_MRU,
         ),
         ft.ElevatedButton(
-            'ir a Balanceo Estequiometricoo',
+            'ir a Balanceo Estequiometrico',
             on_click= new_page_Balanceo_Estequiometrico
         ),
         ft.ElevatedButton(

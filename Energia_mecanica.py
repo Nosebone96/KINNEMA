@@ -1,6 +1,6 @@
 import flet as ft
 import math
-from App_important_controls import Buttons, header_page, cambio_Textfield
+from App_important_controls import controls
 
 def main_energia_mecanica(page: ft.Page) -> ft.Page:
     def Volver_main(e):
@@ -131,19 +131,19 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
         
         
 
-    Energia_cinetica = ft.TextField(label="energía cinetica:", on_change=cambio_Textfield,suffix_text='J')
-    Masa_EC = ft.TextField(label='Masa:', on_change=cambio_Textfield, suffix_text='kg')
-    Velocidad_EC = ft.TextField(label='Velocidad:', on_change=cambio_Textfield, suffix_text='m/s')
+    Energia_cinetica = ft.TextField(label="energía cinetica:", on_change=controls.cambio_Textfield,suffix_text='J')
+    Masa_EC = ft.TextField(label='Masa:', on_change=controls.cambio_Textfield, suffix_text='kg')
+    Velocidad_EC = ft.TextField(label='Velocidad:', on_change=controls.cambio_Textfield, suffix_text='m/s')
     #calcular_Energia_cinetica = Buttons(Calcular=Calcular_EC, Limpiar= Limpiar_EC)
     
-    Energia_potencial_gravitacional = ft.TextField(label='Energía Potencial Gravitacional:', on_change=cambio_Textfield, suffix_text='J')
-    Masa_EPG = ft.TextField(label='Masa:', on_change=cambio_Textfield, suffix_text='kg')
-    Altura = ft.TextField(label='Altura', on_change=cambio_Textfield, suffix_text='m')
+    Energia_potencial_gravitacional = ft.TextField(label='Energía Potencial Gravitacional:', on_change=controls.cambio_Textfield, suffix_text='J')
+    Masa_EPG = ft.TextField(label='Masa:', on_change=controls.cambio_Textfield, suffix_text='kg')
+    Altura = ft.TextField(label='Altura', on_change=controls.cambio_Textfield, suffix_text='m')
     #Calcular_energia_potencial_gravitacional = Buttons(Calcular=Calcular_EPG, Limpiar=Limpiar_EPG),
     
-    energia_potencial_Elastica = ft.TextField(label='Energia Potencial Elástica', on_change=cambio_Textfield, suffix_text='J')
-    Constante_Elasticidad = ft.TextField(label='Constante de Elasticidad', on_change=cambio_Textfield,suffix_text='N/m')
-    Distancia = ft.TextField(label='distancia', on_change=cambio_Textfield, suffix_text='m')
+    energia_potencial_Elastica = ft.TextField(label='Energia Potencial Elástica', on_change=controls.cambio_Textfield, suffix_text='J')
+    Constante_Elasticidad = ft.TextField(label='Constante de Elasticidad', on_change=controls.cambio_Textfield,suffix_text='N/m')
+    Distancia = ft.TextField(label='distancia', on_change=controls.cambio_Textfield, suffix_text='m')
     
     suma_fuerzas = ft.TextField(label='Sumatoria De Fuerzas:', disabled=True, suffix_text='J')
     Cinetica = ft.TextField(label='Energía Cinetica', on_change=On_suma_fuerzas, suffix_text='J')
@@ -160,7 +160,7 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
                     Energia_cinetica,
                     Masa_EC,
                     Velocidad_EC,
-                    Buttons(Calcular=Calcular_EC, Limpiar= Limpiar_EC, e=ft.Container),
+                    controls.Buttons(Calcular=Calcular_EC, Limpiar= Limpiar_EC, e=ft.Container),
                 )   
             )
         ), margin=20, padding= 30  
@@ -174,7 +174,7 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
                     Energia_potencial_gravitacional,
                     Masa_EPG,
                     Altura,
-                    Buttons(Calcular=Calcular_EPG, Limpiar=Limpiar_EPG, e=ft.Container),
+                    controls.Buttons(Calcular=Calcular_EPG, Limpiar=Limpiar_EPG, e=ft.Container),
                 )
             )
         ), margin=20, padding= 30  
@@ -185,7 +185,7 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
                 energia_potencial_Elastica,
                 Constante_Elasticidad,
                 Distancia,
-                Buttons(Calcular=Calcular_EPE, Limpiar=Limpiar_EPE, e=ft.Container),
+                controls.Buttons(Calcular=Calcular_EPE, Limpiar=Limpiar_EPE, e=ft.Container),
             )
         ), margin=20, padding= 30  
     )
@@ -228,7 +228,7 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
     page.add(
         ft.Column(
             controls=[
-                header_page(Volver_main=Volver_main, e=ft.Container),
+                controls.header_page(Volver_main=Volver_main, e=ft.Container),
                 ft.Container(
                     content=Tabs_mecanica, 
                     margin= ft.margin.only(top= 10, left= 0, right=0)

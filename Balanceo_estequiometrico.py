@@ -1,6 +1,6 @@
 import flet as ft
 from chempy import balance_stoichiometry
-from App_important_controls import header_page, Buttons
+from App_important_controls import controls
 
 
 def Balaceo_estequiometrico_main(page: ft.Page) -> ft.Page:
@@ -58,10 +58,10 @@ def Balaceo_estequiometrico_main(page: ft.Page) -> ft.Page:
         return ' + '.join(formatted_parts)
 
     page.add(
-        header_page(Volver_main=Volver_main, e=ft.Container),
+        controls.header_page(Volver_main=Volver_main, e=ft.Container),
         ft.TextField(ref=input_reactivos, label="Reactivos"),
         ft.TextField(ref=input_productos, label="Productos"),
-        Buttons(ft.Container, Calcular=balancear_click, Limpiar=limpiar_click),
+        controls.Buttons(ft.Container, Calcular=balancear_click, Limpiar=limpiar_click),
         ft.Text(ref=ecuacion_balanceada),
         ft.Text("Reactivos:"),
         ft.Text(ref=reactivos_resultado),

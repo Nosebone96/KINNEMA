@@ -1,6 +1,6 @@
 import flet as ft
 from flet import colors
-from App_important_controls import header_page, Buttons
+from App_important_controls import controls
 
 def main_valor_resistencia(page: ft.Page) -> ft.Page:
     
@@ -159,12 +159,12 @@ def main_valor_resistencia(page: ft.Page) -> ft.Page:
     }
     
     page.add(
-        header_page(Volver_main=Volver_main, e=ft.Container),
+        controls.header_page(Volver_main=Volver_main, e=ft.Container),
         dropdowns,
         ft.Divider(height=50, thickness=0),
         draw_resistance,
         ft.Divider(height=50, thickness=0),
-        Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
+        controls.Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
         resultado,
         valor_tolerancia
     )
