@@ -105,11 +105,11 @@ def main_mas(page: ft.Page) -> ft.page:
         animation_duration=400,
         tabs=[
             ft.Tab(
-                text = 'pendulo',
+                text = 'Péndulo simple',
                 content=content_pendulo
             ),
             ft.Tab(
-                text = 'resorte',
+                text = 'Sistema masa-resote',
                 content=content_resorte
             ),
         ]
@@ -127,4 +127,3 @@ def main_mas(page: ft.Page) -> ft.page:
 ft.app(target=main_mas)
 
 
-    
