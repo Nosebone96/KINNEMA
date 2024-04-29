@@ -1,15 +1,15 @@
 import math 
 import flet as ft 
-from App_important_controls import header_page, Buttons, cambio_Textfield
+from App_important_controls import controls
 def ley_de_snell(page: ft.Page) -> ft.Page:
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
         page.go(Menu_principal.main(page))
-    Indice_1 = ft.TextField(label="Indice de refracción 1:", on_change=cambio_Textfield,suffix_text='i')
-    Indice_2 = ft.TextField(label="Indice de refracción 2:", on_change=cambio_Textfield,suffix_text='r')
-    Angulo_1 = ft.TextField(label="Angulo incidente:", on_change=cambio_Textfield,suffix_text='θ')
-    Angulo_2 = ft.TextField(label="Angulo de refracción:", on_change=cambio_Textfield,suffix_text='θ')
+    Indice_1 = ft.TextField(label="Indice de refracción 1:", on_change=controls.cambio_Textfield,suffix_text='i')
+    Indice_2 = ft.TextField(label="Indice de refracción 2:", on_change=controls.cambio_Textfield,suffix_text='r')
+    Angulo_1 = ft.TextField(label="Angulo incidente:", on_change=controls.cambio_Textfield,suffix_text='θ')
+    Angulo_2 = ft.TextField(label="Angulo de refracción:", on_change=controls.cambio_Textfield,suffix_text='θ')
     textfields = ft.Container(
         content= ft.Column(
             controls=(
@@ -61,9 +61,8 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
         page.update() 
         
     page.add(
-        header_page(Volver_main=Volver_main, e=ft.Container),
+        controls.header_page(Volver_main=Volver_main, e=ft.Container),
         textfields,
-        Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley)
+        controls.Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley)
     )
 
-ft.app(target=ley_de_snell)

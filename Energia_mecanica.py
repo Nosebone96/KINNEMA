@@ -134,12 +134,10 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
     Energia_cinetica = ft.TextField(label="energía cinetica:", on_change=controls.cambio_Textfield,suffix_text='J')
     Masa_EC = ft.TextField(label='Masa:', on_change=controls.cambio_Textfield, suffix_text='kg')
     Velocidad_EC = ft.TextField(label='Velocidad:', on_change=controls.cambio_Textfield, suffix_text='m/s')
-    #calcular_Energia_cinetica = Buttons(Calcular=Calcular_EC, Limpiar= Limpiar_EC)
     
     Energia_potencial_gravitacional = ft.TextField(label='Energía Potencial Gravitacional:', on_change=controls.cambio_Textfield, suffix_text='J')
     Masa_EPG = ft.TextField(label='Masa:', on_change=controls.cambio_Textfield, suffix_text='kg')
     Altura = ft.TextField(label='Altura', on_change=controls.cambio_Textfield, suffix_text='m')
-    #Calcular_energia_potencial_gravitacional = Buttons(Calcular=Calcular_EPG, Limpiar=Limpiar_EPG),
     
     energia_potencial_Elastica = ft.TextField(label='Energia Potencial Elástica', on_change=controls.cambio_Textfield, suffix_text='J')
     Constante_Elasticidad = ft.TextField(label='Constante de Elasticidad', on_change=controls.cambio_Textfield,suffix_text='N/m')

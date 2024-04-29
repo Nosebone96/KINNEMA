@@ -2,14 +2,17 @@ from MRU import main_MRU
 from Energia_mecanica import main_energia_mecanica
 from Balanceo_estequiometrico import Balaceo_estequiometrico_main
 from MRUV import main_MRUV
-from Gases_Ideales import main_gases
 from valor_resistencia import main_valor_resistencia
+from ley_de_snell import ley_de_snell
+from mas import main_mas
+from Balanceo_estequiometrico import Balaceo_estequiometrico_main
+from chempy import balance_stoichiometry
 import flet as ft
+from plotly.graph_objects import *
 
 
 def main(page: ft.Page) -> ft.Page:
     page.title = 'KINNEMA'
-    page.scroll = ft.ScrollMode.ALWAYS
     page.padding = 15
     
     def new_page_MRU(e):
@@ -20,10 +23,6 @@ def main(page: ft.Page) -> ft.Page:
         page.controls.clear()
         page.go(Balaceo_estequiometrico_main(page))
 
-    def new_page_Gases_Ideales(e):
-        page.controls.clear()
-        page.go(main_gases(page))
-        
     def new_page_MRUV(e):
         page.controls.clear()
         page.go(main_MRUV(page))
@@ -35,6 +34,12 @@ def main(page: ft.Page) -> ft.Page:
     def new_page_energia_mecanica(e):
         page.controls.clear()
         page.go(main_energia_mecanica(page))
+    def new_page_energia_ley_Snell(e):
+        page.controls.clear()
+        page.go(ley_de_snell(page))
+    def new_page_MAS(e):
+        page.controls.clear()
+        page.go(main_mas(page))
     
     page.add(
         ft.ElevatedButton(
@@ -44,10 +49,6 @@ def main(page: ft.Page) -> ft.Page:
         ft.ElevatedButton(
             'ir a Balanceo Estequiometrico',
             on_click= new_page_Balanceo_Estequiometrico
-        ),
-        ft.ElevatedButton(
-            'ir a Gases Ideales',
-            on_click= new_page_Gases_Ideales
         ),
         ft.ElevatedButton(
             'ir a MRUV (cinematica)',
@@ -61,8 +62,16 @@ def main(page: ft.Page) -> ft.Page:
             'Energía mecanica',
             on_click= new_page_energia_mecanica
         ),
+        ft.ElevatedButton(
+            'Ley de Snell',
+            on_click= new_page_energia_ley_Snell
+        ),
+        ft.ElevatedButton(
+            'Movimiento Armonico Simple',
+            on_click=new_page_MAS
+        )
     )
     
-from Balanceo_estequiometrico import Balaceo_estequiometrico_main
+
 if __name__ == '__main__':
     ft.app(target=main)

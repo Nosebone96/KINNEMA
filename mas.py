@@ -1,9 +1,8 @@
 import flet as ft 
 import math as m 
 
-def main_mas(page: ft.Page) -> ft.page:
+def main_mas(page: ft.Page) -> ft.Page:
 
-    
     def Calcular_PP(e):
         i = 0
         try:
@@ -124,7 +123,6 @@ def main_mas(page: ft.Page) -> ft.page:
             ]
         )
     )
-ft.app(target=main_mas)
 
 
     
