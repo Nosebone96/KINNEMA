@@ -1,8 +1,14 @@
 import flet as ft 
 import math as m 
+from App_important_controls import controls
 
 def main_mas(page: ft.Page) -> ft.Page:
 
+    def Volver_main(e):
+        page.controls.clear()
+        import Menu_principal
+        page.go(Menu_principal.main(page))
+        
     def Calcular_PP(e):
         i = 0
         try:
@@ -114,6 +120,7 @@ def main_mas(page: ft.Page) -> ft.Page:
         ]
     )
     page.add(
+        controls.header_page(e=ft.Container, Volver_main=Volver_main),
         ft.Column(
             controls=[
                 ft.Container(

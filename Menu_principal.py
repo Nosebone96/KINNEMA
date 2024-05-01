@@ -9,6 +9,9 @@ from Balanceo_estequiometrico import Balaceo_estequiometrico_main
 from chempy import balance_stoichiometry
 import flet as ft
 from plotly.graph_objects import *
+from flet.plotly_chart import *
+import plotly.io as pio
+pio.renderers.default = 'svg'
 
 
 def main(page: ft.Page) -> ft.Page:
