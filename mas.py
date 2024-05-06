@@ -23,6 +23,8 @@ def main_mas(page: ft.Page) -> ft.Page:
             g_p = float(G_pendulo.value)
         except ValueError:
             i += 1
+        except ValueError:
+            i += 1
         if i >= 2:
             return 
         if P_pendulo.value == '':
@@ -31,13 +33,17 @@ def main_mas(page: ft.Page) -> ft.Page:
             L_pendulo.value = f'{(g_p / (4 * m.pi**2)) * p_p**2}'
         if G_pendulo.value == '':
             G_pendulo.value = f'{(4 * m.pi**2 * l_p) / p_p**2}'
+        if F_pendulo.value == '':
+            F_pendulo.value = f'{1/p_p}'	
         page.update()
 
     def Limpiar_PP(e):
-        P_pendulo.value = ''
-        L_pendulo.value = ''
-        G_pendulo.value = ''
-        page.update()
+      P_pendulo.value = ''
+      L_pendulo.value = ''
+      G_pendulo.value = ''
+      F_pendulo.value = ''  
+      page.update()
+
 
     def Calcular_PR(e):
         i = 0
@@ -61,21 +67,26 @@ def main_mas(page: ft.Page) -> ft.Page:
             M_resorte.value = f'{(k_r / (4 * m.pi**2)) * p_r**2}'
         if K_resorte.value == '':
             K_resorte.value = f'{(4 * m.pi**2 * m_r) / p_r**2}'
+        if F_resorte.value == '':
+            F_resorte.value = f'{1/p_r}'	
         page.update() 
     
     def Limpiar_PR(e):
         P_resorte.value = ''
         M_resorte.value = ''
         K_resorte.value = ''
+        F_resorte.value = ''
         page.update() 
     
     P_pendulo = ft.TextField(label="Periodo:", )
     L_pendulo = ft.TextField(label='Longitud:',)
     G_pendulo = ft.TextField(label='Gravedad:',)
+    F_pendulo = ft.TextField(label='Frecuencia:',)
     
     P_resorte = ft.TextField(label="Periodo:",)
     M_resorte= ft.TextField(label='Masa:',)
     K_resorte = ft.TextField(label='Constante elastica:',)
+    F_resorte = ft.TextField(label='Frecuencia:',)
 
     content_pendulo = ft.Container(
     content=ft.Column(
@@ -83,8 +94,8 @@ def main_mas(page: ft.Page) -> ft.Page:
             P_pendulo,
             L_pendulo,
             G_pendulo,
-            ft.ElevatedButton(text="Calcular", on_click=Calcular_PP),
-            ft.ElevatedButton(text="Limpiar", on_click=Limpiar_PP)
+            F_pendulo,
+            controls.Buttons(e=ft.Container, Calcular=Calcular_PP, Limpiar=Limpiar_PP)
         ]
     ),
     margin=20,
@@ -97,8 +108,8 @@ def main_mas(page: ft.Page) -> ft.Page:
             P_resorte,
             M_resorte,
             K_resorte,
-            ft.ElevatedButton(text="Calcular", on_click=Calcular_PR),
-            ft.ElevatedButton(text="Limpiar", on_click=Limpiar_PR)
+            F_resorte,
+            controls.Buttons(e=ft.Container, Calcular=Calcular_PR, Limpiar=Limpiar_PR)
         ]
     ),
     margin=20,
@@ -120,7 +131,6 @@ def main_mas(page: ft.Page) -> ft.Page:
         ]
     )
     page.add(
-        controls.header_page(e=ft.Container, Volver_main=Volver_main),
         ft.Column(
             controls=[
                 ft.Container(
@@ -130,6 +140,3 @@ def main_mas(page: ft.Page) -> ft.Page:
             ]
         )
     )
-
-
-    
