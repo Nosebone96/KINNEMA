@@ -1,9 +1,15 @@
 import flet as ft
+import plotly.io as pio
+import plotly.graph_objects as go
+from flet.plotly_chart import PlotlyChart
 
 from App_important_controls import controls
 import math as m
 
 def main_MRUV(page: ft.Page):
+    pio.renderers.default = 'svg'
+    page.scroll = ft.ScrollMode.ALWAYS
+    page.title = 'Movimiento Rectilíneo Uniformemente Variado'
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
@@ -21,6 +27,21 @@ def main_MRUV(page: ft.Page):
             )
         )
     )
+    
+    Distancia_segundos = []
+    velocidad_segundos = []
+    Aceleracion_segundos = []
+
+    # Create a Plotly figure with two empty traces
+    fig = go.Figure(data=[
+        go.Scatter(x=[], y=[], name='Distancia-Tiempo'),
+        go.Scatter(x=[], y=[], name='aceleracion-Tiempo'),
+        go.Scatter(x=[], y=[], name='Velocidad-Tiempo'),
+    ])
+    
+    container_graphic = ft.Container(PlotlyChart(fig), padding=100)
+
+    
     def Calcular(e):
         i = 0
         try:
@@ -113,7 +134,22 @@ def main_MRUV(page: ft.Page):
                 except:
                      print('no se calcula la velocidad final')
             n_r += 1
+            
+        Distancia_segundos.extend(velocidad_i * i + 1/2 * aceleración * i**2 for i in range(1, 11))
+        velocidad_segundos.extend(velocidad_i + aceleración * i for i in range(1, 11))
+        Aceleracion_segundos.extend(aceleración for i in range(1, 11))
+            
+        fig.data[0].x = list(range(1, 11))
+        fig.data[1].x = list(range(1, 11))
+        fig.data[2].x = list(range(1, 11))
+        fig.data[0].y = Distancia_segundos
+        fig.data[1].y = Aceleracion_segundos
+        fig.data[2].y = velocidad_segundos
+            
         page.update()
+        Distancia_segundos.clear()
+        Aceleracion_segundos.clear()
+        velocidad_segundos.clear()
             
     def Limpiar(e):
         Distancia.value = ""
@@ -126,5 +162,6 @@ def main_MRUV(page: ft.Page):
     page.add(
         controls.header_page(Volver_main=Volver_main, e=ft.Container),
         textfields,
-        controls.Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar)
+        controls.Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar),
+        container_graphic,
     )
