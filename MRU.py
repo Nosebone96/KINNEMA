@@ -31,7 +31,7 @@ def main_MRU(page) -> ft.Page:
     ])
 
     # Create a PlotlyChart component with the fig
-    container_graphic = ft.Container(PlotlyChart(fig), padding=100)
+    container_graphic = ft.Container(PlotlyChart(fig))
 
     # Define the Volver_main function
     def Volver_main(e):

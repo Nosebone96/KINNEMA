@@ -3,6 +3,7 @@ import math
 from App_important_controls import controls
 
 def main_energia_mecanica(page: ft.Page) -> ft.Page:
+    page.scroll = ft.ScrollMode.HIDDEN
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
@@ -220,7 +221,8 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
                 text='Sumatoria de Fuerzas',
                 content=Sumatoria_fuerzas,
             )
-        ]
+        ],
+        height=600,
     )
     
     page.add(

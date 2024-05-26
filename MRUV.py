@@ -2,9 +2,10 @@ import flet as ft
 import plotly.io as pio
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
-
+import time
 from App_important_controls import controls
 import math as m
+import threading
 
 def main_MRUV(page: ft.Page):
     pio.renderers.default = 'svg'
@@ -14,34 +15,10 @@ def main_MRUV(page: ft.Page):
         page.controls.clear()
         import Menu_principal
         page.go(Menu_principal.main(page))
-        
-    Distancia = ft.TextField(label='Distancia', suffix_text='m', on_change=controls.cambio_Textfield)
-    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²', on_change=controls.cambio_Textfield)
-    Tiempo = ft.TextField(label='Tiempo', suffix_text='s', on_change=controls.cambio_Textfield)
-    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s', on_change=controls.cambio_Textfield)
-    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s', on_change=controls.cambio_Textfield)
-    textfields = ft.Container(
-        content= ft.Column(
-            controls=(
-                Distancia,Aceleracion,Tiempo,V_inicial,V_final
-            )
-        )
-    )
-    
     Distancia_segundos = []
     velocidad_segundos = []
     Aceleracion_segundos = []
 
-    # Create a Plotly figure with two empty traces
-    fig = go.Figure(data=[
-        go.Scatter(x=[], y=[], name='Distancia-Tiempo'),
-        go.Scatter(x=[], y=[], name='aceleracion-Tiempo'),
-        go.Scatter(x=[], y=[], name='Velocidad-Tiempo'),
-    ])
-    
-    container_graphic = ft.Container(PlotlyChart(fig), padding=100)
-
-    
     def Calcular(e):
         i = 0
         try:
@@ -125,10 +102,10 @@ def main_MRUV(page: ft.Page):
                      print('no se calcula la aceleración')
             # para velocidad final
             if V_final.value == "":
-                if V_final.value == "" and (V_inicial.value != "" and Aceleracion.value != "" and Distancia.value != ""):
-                    V_final.value = f"{m.sqrt(velocidad_i**2 + 2.0 * aceleración * distancia)}"
                 if V_final.value == "" and (V_inicial.value != "" and Aceleracion.value != "" and Tiempo.value != ""):
-                    V_final.value = f"{velocidad_i + aceleración * tiempo}"  
+                    V_final.value = f"{velocidad_i + aceleración * tiempo}"
+                if V_final.value == "" and (V_inicial.value != "" and Aceleracion.value != "" and Distancia.value != ""):
+                    V_final.value = f"{m.sqrt(velocidad_i**2 + 2.0 * aceleración * distancia)}"  
                 try:
                     velocidad_f = float(V_final.value)
                 except:
@@ -145,7 +122,8 @@ def main_MRUV(page: ft.Page):
         fig.data[0].y = Distancia_segundos
         fig.data[1].y = Aceleracion_segundos
         fig.data[2].y = velocidad_segundos
-            
+        Txfaceleracion.value = Aceleracion.value
+        Txfvelocidad.value = V_inicial.value
         page.update()
         Distancia_segundos.clear()
         Aceleracion_segundos.clear()
@@ -158,10 +136,188 @@ def main_MRUV(page: ft.Page):
         V_inicial.value = ""
         V_final.value = ""
         page.update()
+        
+    def llenar_tabla(e):
+        for i in range(1,11):
+            distancia.extend(float(Txfvelocidad.value) * i + 1/2 * float(Txfaceleracion.value) * i**2 for i in range(1, 11))
+            velocidad.extend(float(Txfvelocidad.value) + float(Txfaceleracion.value) * i for i in range(1, 11))
+            aceleracion.extend(float(Txfaceleracion.value) for i in range(1, 11))
+            data_table.rows[0].cells[i].content.value = velocidad[(i-1)]
+            data_table.rows[1].cells[i].content.value = distancia[(i-1)]
+            data_table.rows[2].cells[i].content.value = aceleracion[(i-1)]
+            data_table.update()
+            distancia.clear()
+            velocidad.clear()
+            aceleracion.clear()
+            time.sleep(1.2)
+            
+    def animate_container(e):
+        c1.left=0
+        speed = 0.01
+        movimiento = float(Txfvelocidad.value)
+        velocidad_i = float(Txfvelocidad.value)
+        aceleracion = float(Txfaceleracion.value)
+        for i in range(1000):
+            movimiento = velocidad_i + aceleracion * (i / 100)
+            c1.left += movimiento
+            c1.update()
+            time.sleep(speed)
+        c1.update()
+        
+    def ejecutar_ambas(e):
+        hilo1 = threading.Thread(target=llenar_tabla, args=(e,))
+        hilo2 = threading.Thread(target=animate_container, args=(e,))
+        hilo1.start()
+        hilo2.start()
+    
+    
+    Distancia = ft.TextField(label='Distancia', suffix_text='m', on_change=controls.cambio_Textfield)
+    Aceleracion = ft.TextField(label='Aceleracion', suffix_text='m/s²', on_change=controls.cambio_Textfield)
+    Tiempo = ft.TextField(label='Tiempo', suffix_text='s', on_change=controls.cambio_Textfield)
+    V_inicial = ft.TextField(label='Velocidad Inicial', suffix_text='m/s', on_change=controls.cambio_Textfield)
+    V_final = ft.TextField(label='Velocidad Final', suffix_text='m/s', on_change=controls.cambio_Textfield)
+    
+    calculadora = ft.Container(
+        content= ft.Column(
+            controls=(
+                Distancia,Aceleracion,Tiempo,V_inicial,V_final, controls.Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar),
+            )
+        ),margin=ft.margin.only(bottom=30, top=30)
+    )
+    
+    fig = go.Figure(data=[
+        go.Scatter(x=[], y=[], name='Distancia-Tiempo'),
+        go.Scatter(x=[], y=[], name='aceleracion-Tiempo'),
+        go.Scatter(x=[], y=[], name='Velocidad-Tiempo'),
+    ])
+    
+    container_graphic = ft.Container(PlotlyChart(fig, expand=True))
+    
+    
+    Txfvelocidad = ft.TextField(label='Velocidad')
+    Txfaceleracion = ft.TextField(label='Aceleración')
+    velocidad = []
+    distancia = []
+    aceleracion = []
+    
+    data_table = ft.DataTable(
+        width=1100,
+        border_radius=10,
+        border=ft.border.all(1, "#9ecaff"),
+        vertical_lines=ft.border.BorderSide(1, "#9ecaff"),
+        columns=[
+            ft.DataColumn(ft.Text("Tiempo (s)"), numeric=True),
+            ft.DataColumn(ft.Text("1"), numeric=True),
+            ft.DataColumn(ft.Text("2"), numeric=True),
+            ft.DataColumn(ft.Text("3"), numeric=True),
+            ft.DataColumn(ft.Text("4"), numeric=True),
+            ft.DataColumn(ft.Text("5"), numeric=True),
+            ft.DataColumn(ft.Text("6"), numeric=True),
+            ft.DataColumn(ft.Text("7"), numeric=True),
+            ft.DataColumn(ft.Text("8"), numeric=True),
+            ft.DataColumn(ft.Text("9"), numeric=True),
+            ft.DataColumn(ft.Text("10"), numeric=True),
+        ],
+        rows=[
+            ft.DataRow(
+                cells=[
+                    ft.DataCell(ft.Text("Velocidad (m/s)")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                ],
+            ),
+            ft.DataRow(
+                cells=[
+                    ft.DataCell(ft.Text("Distancia (m)")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                ],
+            ),
+            ft.DataRow(
+                cells=[
+                    ft.DataCell(ft.Text("Aceleración (m/s^2)")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
+                ],
+            ),
+        ],
+    )
+    
+    c1 = ft.Container(
+        content=ft.Image(src="carro.jpg"),
+        width=100,
+        height=100,
+        bgcolor=ft.colors.GREEN_200,
+        border_radius=10,
+        top=0,
+        left=0,
+        animate=ft.Animation(duration=1000, curve=ft.AnimationCurve.LINEAR),
+    )
+    
+    stak_animation = ft.Stack([c1], height=100, width=1200)
+    animar = ft.ElevatedButton("¡¡ANIMAR!!", on_click=ejecutar_ambas)
+    
+    container_data = ft.Container(
+        content=ft.Column(
+            controls=[
+                ft.Row(controls=[Txfaceleracion, Txfvelocidad], alignment=ft.MainAxisAlignment.CENTER, spacing=20),
+                data_table,
+            ],  
+        ),margin=ft.margin.only(top=20, bottom=40, left=10, right=10), padding=ft.padding.only(top=20, bottom=20, left=40, right=20),
+    )
+    
+    clm_animacion = ft.Column(
+        controls=[
+            container_data,
+            stak_animation,
+            animar,
+        ],
+    )
+    
+    tabs = ft.Tabs(
+        tab_alignment= ft.MainAxisAlignment.CENTER,
+        height=900,
+        tabs=[
+            ft.Tab(
+                text="calculadora",
+                content=calculadora,
+            ),
+            ft.Tab(
+                text="Grafica",
+                content=container_graphic,
+            ),
+            ft.Tab(
+                text='animación',
+                content=clm_animacion,
+            )
+        ]
+    )
 
     page.add(
         controls.header_page(Volver_main=Volver_main, e=ft.Container),
-        textfields,
-        controls.Buttons(ft.Container, Calcular=Calcular, Limpiar=Limpiar),
-        container_graphic,
+        tabs,        
     )
