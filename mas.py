@@ -4,7 +4,6 @@ import numpy as np
 import plotly.express as px
 from flet.plotly_chart import PlotlyChart
 from App_important_controls import controls
-
 def main_mas(page: ft.Page) -> ft.Page:
     page.scroll = ft.ScrollMode.ALWAYS
     page.title = 'Movimiento Armonico Simple'
@@ -38,11 +37,11 @@ def main_mas(page: ft.Page) -> ft.Page:
         trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
 
         # Add annotations for the first 3 peaks, the highest peak, and the lowest trough
-        for i in range(5):
+        for i in range(3):
             if i < len(peak_idx):
                 fig.add_annotation(text=f"x={x[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=x[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
                 fig.add_annotation(text=f"x={x[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=x[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
-        return fig
+        return fig        
 
     def plot_sinusoidal_velocity_graph(frequency, amplitude):
         v = np.linspace(0, 10, 1000)
@@ -55,7 +54,7 @@ def main_mas(page: ft.Page) -> ft.Page:
         trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
 
         # Add annotations for the first 3 peaks, the highest peak, and the lowest trough
-        for i in range(5):
+        for i in range(3):
             if i < len(peak_idx):
                 fig.add_annotation(text=f"x={v[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=v[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
                 fig.add_annotation(text=f"x={v[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=v[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
@@ -72,7 +71,7 @@ def main_mas(page: ft.Page) -> ft.Page:
         trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
 
         # Add annotations for the first 3 peaks, the highest peak, and the lowest trough
-        for i in range(5):
+        for i in range(3):
             if i < len(peak_idx):
                 fig.add_annotation(text=f"x={a[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=a[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
                 fig.add_annotation(text=f"x={a[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=a[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
