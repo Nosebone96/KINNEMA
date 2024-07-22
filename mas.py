@@ -2,15 +2,19 @@ import flet as ft
 import math as m
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
+from plotly.subplots import make_subplots
 from App_important_controls import controls
+
 def main_mas(page: ft.Page) -> ft.Page:
-    page.scroll = ft.ScrollMode.ALWAYS
-    page.title = 'Movimiento Armonico Simple'
+    page.scroll = ft.ScrollMode.HIDDEN
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
         page.go(Menu_principal.main(page))
+    page.title = 'Movimiento Armonico Simple'
+
     def calculate_period(length, gravity):
         return 2 * m.pi * m.sqrt(length / gravity)
 
@@ -26,56 +30,26 @@ def main_mas(page: ft.Page) -> ft.Page:
     def calculate_angular_frequency(length, gravity):
         return m.sqrt(gravity / length)
 
-    def plot_sinusoidal_graph(amplitude, frequency):
-        x = np.linspace(0, 10, 1000)
-        W = 2 * m.pi * frequency
-        y = amplitude * np.cos(W * x)
-        fig = px.line(x=x, y=y)
+    def plot_sinusoidal_graphs(amplitude, frequency):
+     fig = make_subplots(rows=3, cols=1, shared_xaxes=True)
 
-        # Find peak and trough indices
-        peak_idx = np.where(np.diff(np.sign(np.diff(y))) < 0)[0] + 1
-        trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
+     x = np.linspace(0, 10, 1000)
+     W = 2 * m.pi * frequency
+     y = amplitude * np.cos(W * x)
+     fig.append_trace(go.Scatter(x=x, y=y, name='Posición'), row=1, col=1)
 
-        # Add annotations for the first 3 peaks, the highest peak, and the lowest trough
-        for i in range(1):
-            if i < len(peak_idx):
-                fig.add_annotation(text=f"x={x[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=x[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
-                fig.add_annotation(text=f"x={x[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=x[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
-        return fig        
+     v = np.linspace(0, 10, 1000)
+     w = 2 * m.pi * frequency
+     y = -amplitude * w * np.sin(w * v)
+     fig.append_trace(go.Scatter(x=v, y=y, name='Velocidad'), row=2, col=1)
 
-    def plot_sinusoidal_velocity_graph(frequency, amplitude):
-        v = np.linspace(0, 10, 1000)
-        w = 2 * m.pi * frequency
-        y = -amplitude * w * np.sin(w * v)
-        fig = px.line(x=v, y=y)
+     a = np.linspace(0, 10, 1000)
+     w = 2 * m.pi * frequency
+     y = -amplitude * w**2 * np.cos(w * a)
+     fig.append_trace(go.Scatter(x=a, y=y, name='Aceleración'), row=3, col=1)
 
-        # Find peak and trough indices
-        peak_idx = np.where(np.diff(np.sign(np.diff(y))) < 0)[0] + 1
-        trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
-
-        # Add annotations for the first 1 peaks, the highest peak, and the lowest trough
-        for i in range(1):
-            if i < len(peak_idx):
-                fig.add_annotation(text=f"x={v[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=v[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
-                fig.add_annotation(text=f"x={v[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=v[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
-        return fig
-
-    def plot_sinusoidal_aceleration(frequency, amplitude):
-        a = np.linspace(0, 10, 1000)
-        w = 2 * m.pi * frequency
-        y = -amplitude * w**2 * np.cos(w * a)
-        fig = px.line(x=a, y=y)
-
-        # Find peak and trough indices
-        peak_idx = np.where(np.diff(np.sign(np.diff(y))) < 0)[0] + 1
-        trough_idx = np.where(np.diff(np.sign(np.diff(y + 1e-10))) > 0)[0] + 1
-
-        # Add annotations for the first 1 peaks, the highest peak, and the lowest trough
-        for i in range(1):
-            if i < len(peak_idx):
-                fig.add_annotation(text=f"x={a[peak_idx[i]]:.2f}, y={y[peak_idx[i]]:.2f}", x=a[peak_idx[i]], y=y[peak_idx[i]], showarrow=True, arrowhead=1)
-                fig.add_annotation(text=f"x={a[trough_idx[i]]:.2f}, y={y[trough_idx[i]]:.2f}", x=a[trough_idx[i]], y=y[trough_idx[i]], showarrow=True, arrowhead=1)
-        return fig
+     fig.update_layout(height=600, width=800, title_text="Gráficas de movimiento armónico simple")
+     return fig
 
     def calcular_pp(e):
         try:
@@ -123,21 +97,9 @@ def main_mas(page: ft.Page) -> ft.Page:
             print("invalid values failed")
             return
 
-        fig1 = plot_sinusoidal_graph(amplitude, frequency)
-        fig2 = plot_sinusoidal_velocity_graph(frequency, amplitude)
-        fig3 = plot_sinusoidal_aceleration(frequency, amplitude)
-
-        chart1 = PlotlyChart(fig1)
-        chart2 = PlotlyChart(fig2)
-        chart3 = PlotlyChart(fig3)
-
-        graph_container = ft.Column(
-            controls=[chart1, chart2, chart3]
-        )
-
-        content_pendulo.content.controls.append(graph_container)
+        chart = PlotlyChart(plot_sinusoidal_graphs(amplitude, frequency))
+        content_pendulo.content.controls.append(chart)  
         page.update()
-
 
 
     def calcular_pr(e):
@@ -186,19 +148,9 @@ def main_mas(page: ft.Page) -> ft.Page:
             print("invalid values failed")
             return
 
-        fig1 = plot_sinusoidal_graph(amplitude, frequency)
-        fig2 = plot_sinusoidal_velocity_graph(frequency, amplitude)
-        fig3 = plot_sinusoidal_aceleration(frequency, amplitude)
-
+        fig1 = plot_sinusoidal_graphs(amplitude, frequency)
         chart1 = PlotlyChart(fig1)
-        chart2 = PlotlyChart(fig2)
-        chart3 = PlotlyChart(fig3)
-
-        graph_container = ft.Column(
-            controls=[chart1, chart2, chart3]
-        )
-
-        content_resorte.content.controls.append(graph_container)
+        content_resorte.content.controls.append(chart1)  # Add the chart to the content_resorte container
         page.update()
 
     def limpiar_pp(e):
@@ -245,7 +197,7 @@ def main_mas(page: ft.Page) -> ft.Page:
                 f_pendulo,
                 a_pendulo,
                 fa_pendulo,
-                controls.Buttons(e=ft.Container, Calcular=calcular_pp, Limpiar=limpiar_pp)
+                ft.Row(controls=[ft.ElevatedButton(text="Calcular", on_click=calcular_pp), ft.ElevatedButton(text="Limpiar", on_click=limpiar_pp)])
             ]
         ),
         margin=20,
@@ -261,7 +213,7 @@ def main_mas(page: ft.Page) -> ft.Page:
                 f_resorte,
                 a_resorte,
                 fa_resorte,
-                controls.Buttons(e=ft.Container, Calcular=calcular_pr, Limpiar=limpiar_pr)
+                ft.Row(controls=[ft.ElevatedButton(text="Calcular", on_click=calcular_pr), ft.ElevatedButton(text="Limpiar", on_click=limpiar_pr)])
             ]
         ),
         margin=20,
@@ -285,7 +237,9 @@ def main_mas(page: ft.Page) -> ft.Page:
 
     page.add(
         ft.Column(
-            controls=[ft.Container(
+            controls=[
+                controls.header_page(Volver_main=Volver_main, e=ft.Container),
+                ft.Container(
                     content=tabs_mas, 
                     margin=ft.margin.only(top=10, left=0, right=0)
                 ),
