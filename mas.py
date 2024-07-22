@@ -8,7 +8,7 @@ from plotly.subplots import make_subplots
 from App_important_controls import controls
 
 def main_mas(page: ft.Page) -> ft.Page:
-    page.scroll = ft.ScrollMode.HIDDEN
+    page.scroll = ft.ScrollMode.ALWAYS
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
