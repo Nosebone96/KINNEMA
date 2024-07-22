@@ -1,7 +1,6 @@
 import flet as ft
 import math as m
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
 from plotly.subplots import make_subplots
@@ -150,7 +149,7 @@ def main_mas(page: ft.Page) -> ft.Page:
 
         fig1 = plot_sinusoidal_graphs(amplitude, frequency)
         chart1 = PlotlyChart(fig1)
-        content_resorte.content.controls.append(chart1)  # Add the chart to the content_resorte container
+        content_resorte.content.controls.append(chart1)  
         page.update()
 
     def limpiar_pp(e):
@@ -197,7 +196,7 @@ def main_mas(page: ft.Page) -> ft.Page:
                 f_pendulo,
                 a_pendulo,
                 fa_pendulo,
-                ft.Row(controls=[ft.ElevatedButton(text="Calcular", on_click=calcular_pp), ft.ElevatedButton(text="Limpiar", on_click=limpiar_pp)])
+                controls.Buttons(Calcular=calcular_pp, Limpiar=limpiar_pp, e=ft.Container),
             ]
         ),
         margin=20,
@@ -213,7 +212,7 @@ def main_mas(page: ft.Page) -> ft.Page:
                 f_resorte,
                 a_resorte,
                 fa_resorte,
-                ft.Row(controls=[ft.ElevatedButton(text="Calcular", on_click=calcular_pr), ft.ElevatedButton(text="Limpiar", on_click=limpiar_pr)])
+                controls.Buttons(Calcular=calcular_pr, Limpiar=limpiar_pr, e=ft.Container),
             ]
         ),
         margin=20,
@@ -241,12 +240,8 @@ def main_mas(page: ft.Page) -> ft.Page:
                 controls.header_page(Volver_main=Volver_main, e=ft.Container),
                 ft.Container(
                     content=tabs_mas, 
-                    margin=ft.margin.only(top=10, left=0, right=0)
+                    margin= ft.margin.only(top= 10, left= 0, right=0)
                 ),
-                ft.Column(
-                  scroll=ft.ScrollMode.ALWAYS,
-                  expand=True,
-                )
             ]
         )
     )
