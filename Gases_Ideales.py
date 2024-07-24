@@ -3,49 +3,102 @@ import importlib
 from App_important_controls import controls
 def main_gases(page: ft.Page):
     page.title = "Gases Ideales"
+    
+    def Calcular_boyle(e):
+        i = 0
+        try:
+            volumen_i = float(volumen_inicial_boyle.value)
+        except ValueError:
+            i+=1
+        try:
+            volumen_f = float(volumen_final_boyle.value)
+        except ValueError:
+            i+=1
+        try:
+            presion_i = float(presion_inicial_boyle.value)
+        except ValueError:
+            i+=1
+        try:
+            presion_f = float(presion_final_boyle.value)
+        except ValueError:
+            i+=1
+        if i > 1:
+            print('sihola')
+            return
 
-    volumen_inicial = ft.TextField(label='Volumen Inicial')
-    volumen_final = ft.TextField(label='Volumen final')
-    temperatura_inicial = ft.TextField(label='temperatura Inicial')
-    temperatura_final = ft.TextField(label='Temperatura final')
-    presion_inicial = ft.TextField(label='Presión inicial')
-    presion_final = ft.TextField(label='Presión final')
+        if volumen_inicial_boyle.value == '':
+            volumen_inicial_boyle.value = presion_f * volumen_f / presion_i
+        if volumen_final_boyle.value == '':
+            volumen_final_boyle.value = presion_i * volumen_i / presion_f
+        if presion_inicial_boyle.value == '':
+            presion_inicial_boyle.value = volumen_f * presion_f / volumen_i
+        if presion_final_boyle.value == '':
+            presion_final_boyle.value = volumen_i * presion_i / volumen_f
+        page.update()
+        
+    def Limpiar(e):
+        pass
+    
+    volumen_inicial_boyle = ft.TextField(label='Volumen Inicial')
+    volumen_final_boyle = ft.TextField(label='Volumen final')
+    presion_inicial_boyle = ft.TextField(label='Presión inicial')
+    presion_final_boyle= ft.TextField(label='Presión final')
+    
+    volumen_inicial_charles = ft.TextField(label='Volumen Inicial')
+    volumen_final_charles = ft.TextField(label='Volumen final')
+    temperatura_inicial_charles = ft.TextField(label='temperatura Inicial')
+    temperatura_final_charles = ft.TextField(label='Temperatura final')
+    
+    presion_inicial_lussac = ft.TextField(label='Presión inicial')
+    presion_final_lussac = ft.TextField(label='Presión final')
+    temperatura_inicial_lussac = ft.TextField(label='temperatura Inicial')
+    temperatura_final_lussac = ft.TextField(label='Temperatura final')
+    
     moles = ft.TextField(label='moles')
-
-    textfields=ft.Column(
-        controls=(
-            ft.TextField(label='grupo de textfields'),  
-        ),
+    
+    Ct_boyle = ft.Container(
+        content=ft.Column(
+            controls=[
+                volumen_inicial_boyle, volumen_final_boyle, presion_inicial_boyle, presion_final_boyle,
+                controls.Buttons(ft.Container, Calcular=Calcular_boyle, Limpiar=Limpiar),
+            ]
+        )
     )
-    Contenido = ft.Container(
-        content=textfields
+    ct_charles = ft.Container(
+        content=ft.Column(
+            controls=[
+                volumen_inicial_charles, volumen_final_charles, temperatura_inicial_charles, temperatura_final_charles
+            ]
+        )
     )
-    
-    def elegir_formula(e):
-        Contenido.visible = False
-        if Eleccion_formula.value == 'Boyle':
-            textfields.visible(volumen_inicial, volumen_final, presion_inicial, presion_final)
-        elif Eleccion_formula.value == 'Lussac':
-            ...
-        elif Eleccion_formula.value == 'Charles':
-            ...
-        elif Eleccion_formula.value == 'Combinada':
-            ...
-        elif Eleccion_formula.value == 'General':
-            ...
-        else:
-            print('no se ha elegido ningún elemento')
-    
-    
+    ct_lussac = ft.Container(
+        content=ft.Column(
+            controls=[
+                presion_inicial_lussac, presion_final_lussac, temperatura_inicial_lussac, temperatura_final_lussac
+            ]
+        )
+    )
+
+
     
 
-    Eleccion_formula = ft.RadioGroup(content=ft.Row([
-        ft.Radio(value='Boyle',label="Boyle"),
-        ft.Radio(value='Lussac',label="Gay Lussac"),
-        ft.Radio(value='Charles',label="Charles"),
-        ft.Radio(value='Combinada',label="Combinada"),
-        ft.Radio(value='General',label="General"),]), on_change=elegir_formula)
+    def Volver_main(e):
+        page.controls.clear()
+        import Menu_principal
+        page.go(Menu_principal.main(page))
+
+    tabs = ft.Tabs(
+        selected_index=0,
+        height=500,
+        tabs=[
+            ft.Tab(text="Boyle", content=Ct_boyle),
+            ft.Tab(text="Gay-Lussac", content=ct_lussac),
+            ft.Tab(text="Charles", content=ct_charles),
+            ft.Tab(text="Combinada"),
+            ft.Tab(text="General"),
+        ],
+    )
+    page.add(tabs)
     
-    page.add(Eleccion_formula, textfields)
     
 ft.app(target=main_gases)

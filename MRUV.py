@@ -111,14 +111,16 @@ def main_MRUV(page: ft.Page):
                 except:
                      print('no se calcula la velocidad final')
             n_r += 1
-            
+        
+        Distancia_segundos.append(0)
+        velocidad_segundos.append(velocidad_i)
         Distancia_segundos.extend(velocidad_i * i + 1/2 * aceleración * i**2 for i in range(1, 11))
         velocidad_segundos.extend(velocidad_i + aceleración * i for i in range(1, 11))
-        Aceleracion_segundos.extend(aceleración for i in range(1, 11))
+        Aceleracion_segundos.extend(aceleración for i in range(0, 11))
             
-        fig.data[0].x = list(range(1, 11))
-        fig.data[1].x = list(range(1, 11))
-        fig.data[2].x = list(range(1, 11))
+        fig.data[0].x = list(range(0, 11))
+        fig.data[1].x = list(range(0, 11))
+        fig.data[2].x = list(range(0, 11))
         fig.data[0].y = Distancia_segundos
         fig.data[1].y = Aceleracion_segundos
         fig.data[2].y = velocidad_segundos
@@ -138,18 +140,21 @@ def main_MRUV(page: ft.Page):
         page.update()
         
     def llenar_tabla(e):
-        for i in range(1,11):
-            distancia.extend(float(Txfvelocidad.value) * i + 1/2 * float(Txfaceleracion.value) * i**2 for i in range(1, 11))
-            velocidad.extend(float(Txfvelocidad.value) + float(Txfaceleracion.value) * i for i in range(1, 11))
-            aceleracion.extend(float(Txfaceleracion.value) for i in range(1, 11))
-            data_table.rows[0].cells[i].content.value = velocidad[(i-1)]
-            data_table.rows[1].cells[i].content.value = distancia[(i-1)]
-            data_table.rows[2].cells[i].content.value = aceleracion[(i-1)]
+        velocidad.append(Txfvelocidad.value)
+        distancia.extend("0")
+        distancia.extend(float(Txfvelocidad.value) * i + 1/2 * float(Txfaceleracion.value) * i**2 for i in range(1, 11))
+        velocidad.extend(float(Txfvelocidad.value) + float(Txfaceleracion.value) * i for i in range(1, 11))
+        print(distancia)
+        print(velocidad)
+        for i in range(1,12):
+            data_table.rows[0].cells[i].content.value = velocidad[((i - 1))]
+            data_table.rows[1].cells[i].content.value = distancia[(i - 1)]
+            data_table.rows[2].cells[i].content.value = Txfaceleracion.value
             data_table.update()
-            distancia.clear()
-            velocidad.clear()
-            aceleracion.clear()
-            time.sleep(1.2)
+            time.sleep(1.1)
+        distancia.clear()
+        velocidad.clear()
+        aceleracion.clear()
             
     def animate_container(e):
         c1.left=0
@@ -194,10 +199,10 @@ def main_MRUV(page: ft.Page):
     container_graphic = ft.Container(PlotlyChart(fig, expand=True))
     
     
-    Txfvelocidad = ft.TextField(label='Velocidad')
+    Txfvelocidad = ft.TextField(label='Velocidad inicial')
     Txfaceleracion = ft.TextField(label='Aceleración')
     velocidad = []
-    distancia = []
+    distancia = [] 
     aceleracion = []
     
     data_table = ft.DataTable(
@@ -207,6 +212,7 @@ def main_MRUV(page: ft.Page):
         vertical_lines=ft.border.BorderSide(1, "#9ecaff"),
         columns=[
             ft.DataColumn(ft.Text("Tiempo (s)"), numeric=True),
+            ft.DataColumn(ft.Text("0"), numeric=True),
             ft.DataColumn(ft.Text("1"), numeric=True),
             ft.DataColumn(ft.Text("2"), numeric=True),
             ft.DataColumn(ft.Text("3"), numeric=True),
@@ -232,11 +238,13 @@ def main_MRUV(page: ft.Page):
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
                 ],
             ),
             ft.DataRow(
                 cells=[
                     ft.DataCell(ft.Text("Distancia (m)")),
+                    ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
@@ -262,23 +270,22 @@ def main_MRUV(page: ft.Page):
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
                     ft.DataCell(ft.Text("")),
+                    ft.DataCell(ft.Text("")),
                 ],
             ),
         ],
     )
     
     c1 = ft.Container(
-        content=ft.Image(src="carro.jpg"),
-        width=100,
-        height=100,
-        bgcolor=ft.colors.GREEN_200,
-        border_radius=10,
+        content=ft.Image(src="moto.png"),
+        width=200,
+        height=200,
         top=0,
         left=0,
         animate=ft.Animation(duration=1000, curve=ft.AnimationCurve.LINEAR),
     )
     
-    stak_animation = ft.Stack([c1], height=100, width=1200)
+    stak_animation = ft.Stack([c1], height=400, width=1200)
     animar = ft.ElevatedButton("¡¡ANIMAR!!", on_click=ejecutar_ambas)
     
     container_data = ft.Container(

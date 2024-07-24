@@ -1,4 +1,3 @@
-from MRU import main_MRU
 from Energia_mecanica import main_energia_mecanica
 from Balanceo_estequiometrico import Balaceo_estequiometrico_main
 from MRUV import main_MRUV
@@ -17,10 +16,6 @@ pio.renderers.default = 'svg'
 def main(page: ft.Page) -> ft.Page:
     page.title = 'KINNEMA'
     page.padding = 15
-    
-    def new_page_MRU(e):
-        page.controls.clear()
-        page.go(main_MRU(page))
         
     def new_page_Balanceo_Estequiometrico(e):
         page.controls.clear()
@@ -45,10 +40,6 @@ def main(page: ft.Page) -> ft.Page:
         page.go(main_mas(page))
     
     page.add(
-        ft.ElevatedButton(
-            'ir a movimiento Rectilíneo Uniforme',
-            on_click=new_page_MRU,
-        ),
         ft.ElevatedButton(
             'ir a Balanceo Estequiometrico',
             on_click= new_page_Balanceo_Estequiometrico
