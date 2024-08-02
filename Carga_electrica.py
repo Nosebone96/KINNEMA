@@ -61,6 +61,3 @@ def Carga_electrica(page: ft.Page) -> ft.Page:
             ]
         )
     )
-
-if __name__ == '__main__': 
-    ft.app(target=Carga_electrica)

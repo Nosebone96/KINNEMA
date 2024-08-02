@@ -6,6 +6,8 @@ from ley_de_snell import ley_de_snell
 from mas import main_mas
 from Balanceo_estequiometrico import Balaceo_estequiometrico_main
 from chempy import balance_stoichiometry
+from ley_de_coulomb import ley_de_coulomb
+from Carga_electrica import Carga_electrica
 import flet as ft
 from plotly.graph_objects import *
 from flet.plotly_chart import *
@@ -32,12 +34,22 @@ def main(page: ft.Page) -> ft.Page:
     def new_page_energia_mecanica(e):
         page.controls.clear()
         page.go(main_energia_mecanica(page))
+
     def new_page_energia_ley_Snell(e):
         page.controls.clear()
         page.go(ley_de_snell(page))
+
     def new_page_MAS(e):
         page.controls.clear()
         page.go(main_mas(page))
+
+    def new_page_Carga_electrica(e):
+        page.controls.clear()
+        page.go(Carga_electrica(page))
+
+    def new_page_ley_de_coulomb(e):
+        page.controls.clear()
+        page.go(ley_de_coulomb(page))
     
     page.add(
         ft.ElevatedButton(
@@ -63,9 +75,16 @@ def main(page: ft.Page) -> ft.Page:
         ft.ElevatedButton(
             'Movimiento Armonico Simple',
             on_click=new_page_MAS
-        )
+        ),
+        ft.ElevatedButton(
+            'Carga electrica',
+            on_click=new_page_Carga_electrica
+        ),
+        ft.ElevatedButton(
+            'Ley de Coulomb',
+            on_click=new_page_ley_de_coulomb
     )
-    
+    )
 
 if __name__ == '__main__':
     ft.app(target=main)

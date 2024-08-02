@@ -110,6 +110,3 @@ def ley_de_coulomb(page: ft.Page) -> ft.Page:
             ]
         )
     )
-
-if __name__ == '__main__': 
- ft.app(target=ley_de_coulomb)
