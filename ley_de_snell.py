@@ -8,10 +8,12 @@ import plotly.graph_objects as go
 
 def ley_de_snell(page: ft.Page) -> ft.Page:
     page.scroll = ft.ScrollMode.ALWAYS
+    
     def Volver_main(e):
         page.controls.clear()
         import Menu_principal
         page.go(Menu_principal.main(page))
+    
     
     def change_type_snell(e):
         Indice_1.disabled = False
@@ -28,6 +30,7 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
         Indice_2.update()
         Angulo_1.update()
         Angulo_2.update()
+     
         
     def grafica(e, angulo, angulo2):
         # Crea una figura
@@ -62,7 +65,41 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
             mode='lines',
             name="onda Refractada"
         ))
-         
+            
+        theta = np.linspace(angulo, np.pi/2, 100)
+        x_arc = x0 + 3 * np.cos(theta)
+        y_arc = y0 + 3 * np.sin(theta)
+        fig.add_trace(go.Scatter(
+            x=x_arc,
+            y=y_arc,
+            mode='lines',
+            line=dict(color='gray', dash='dot'),
+            name='Angulo Incidente'
+        ))
+        fig.add_annotation(text=f'{Angulo_1.value}°',
+                   x=x_arc[int(len(x_arc)/2)],
+                   y=y_arc[int(len(y_arc)/2)] + 0.5,
+                   showarrow=False,
+                   font=dict(size=15, color='black'))
+
+        theta2 = np.linspace(angulo2, -np.pi/2, 100)
+        x_arc2 = x0 + 3 * np.cos(theta2)
+        y_arc2 = y0 + 3 * np.sin(theta2)
+        fig.add_trace(go.Scatter(
+            x=x_arc2,
+            y=y_arc2,
+            mode='lines', 
+            line=dict(color='gray', dash='dot'), 
+            name='Angulo Refractado',
+        ))
+        
+        fig.add_annotation(text=f'{Angulo_2.value}°',
+                   x=x_arc2[int(len(x_arc2)/2)],
+                   y=y_arc2[int(len(y_arc2)/2)] - 1,
+                   showarrow=False,
+                   font=dict(size=15, color='black'))
+
+                 
         # Configura el rango de la gráfica para que se vea la línea hasta el infinito
         fig.update_layout(
             xaxis=dict(
@@ -122,67 +159,75 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
             other_wave(e,I_1,I_2,A_1,A_2)
         page.update()
         
-        
-        
+             
     def with_light(e,I_1,I_2,A_1,A_2):
-        if Indice_1.value == '':
-            I_1 = I_2 * math.sin(A_2) / math.sin(A_1)
-            Indice_1.value = f'{I_1}'
-            Indice_1.update()
-        elif Indice_2.value == '':
-            I_2 = I_1 * math.sin(A_1) / math.sin(A_2)
-            Indice_2.value = f'{I_2}'
-            Indice_2.update()
-        elif Angulo_1.value == '':
-            A_1 = math.asin(I_2 * math.sin(A_2) / I_1)
-            Angulo_1.value = f'{math.degrees(A_1)}'
-            Angulo_1.update()
-        elif Angulo_2.value == '':
-            A_2 = math.asin(I_1 * math.sin(A_1) / I_2)
-            Angulo_2.value = f'{math.degrees(A_2)}'
-            Angulo_2.update()
-        light_graph = PlotlyChart(grafica(e,angulo=A_1,angulo2=A_2), expand=True)
-        container_grafica.controls.append(light_graph)
+        try:
+            if Indice_1.value == '':
+                I_1 = I_2 * math.sin(A_2) / math.sin(A_1)
+                Indice_1.value = f'{round(I_1, 1)}'
+                Indice_1.update()
+            elif Indice_2.value == '':
+                I_2 = I_1 * math.sin(A_1) / math.sin(A_2)
+                Indice_2.value = f'{round(I_2, 1)}'
+                Indice_2.update()
+            elif Angulo_1.value == '':
+                A_1 = math.asin(I_2 * math.sin(A_2) / I_1)
+                Angulo_1.value = f'{round(math.degrees(A_1,1))}'
+                Angulo_1.update()
+            elif Angulo_2.value == '':
+                A_2 = math.asin(I_1 * math.sin(A_1) / I_2)
+                Angulo_2.value = f'{round(math.degrees(A_2),1)}'
+                Angulo_2.update()
+            light_graph = PlotlyChart(grafica(e,angulo=A_1,angulo2=A_2), expand=True)
+            container_grafica.controls.append(light_graph)
+        except:
+            page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+            page.snack_bar.open = True
+            page.update()
         
         
-            
-    
     def other_wave(e,I_1,I_2,A_1,A_2):
-        if Indice_1.value == '':
-            I_1 = I_2 * math.sin(A_1) / math.sin(A_2)
-            Indice_1.value = f'{I_1}'
-            Indice_1.update()
-        elif Indice_2.value == '':
-            I_2 = I_1 * math.sin(A_2) / math.sin(A_1)
-            Indice_2.value = f'{I_2}'
-            Indice_2.update()
-        elif Angulo_1.value == '':
-            A_1 = math.asin(math.sin(A_2) * I_1 / I_2)
-            Angulo_1.value = f'{math.degrees(A_1)}'
-            Angulo_1.update()
-        elif Angulo_2.value == '':
-            A_2 = math.asin(math.sin(A_1) * I_2 / I_1)
-            Angulo_2.value = f'{math.degrees(A_2)}'
-            Angulo_2.update()
-        light_graph = PlotlyChart(grafica(e,angulo=A_1,angulo2=A_2), expand=True)
-        container_grafica.controls.append(light_graph)
+        try:
+            if Indice_1.value == '':
+                I_1 = I_2 * math.sin(A_1) / math.sin(A_2)
+                Indice_1.value = f'{round(I_1,1)}'
+                Indice_1.update()
+            elif Indice_2.value == '':
+                I_2 = I_1 * math.sin(A_2) / math.sin(A_1)
+                Indice_2.value = f'{round(I_2, 1)}'
+                Indice_2.update()
+            elif Angulo_1.value == '':
+                A_1 = math.asin(math.sin(A_2) * I_1 / I_2)
+                Angulo_1.value = f'{round(math.degrees(A_1), 1)}'
+                Angulo_1.update()
+            elif Angulo_2.value == '':
+                A_2 = math.asin(math.sin(A_1) * I_2 / I_1)
+                Angulo_2.value = f'{round(math.degrees(A_2), 1)}'
+                Angulo_2.update()
+            light_graph = PlotlyChart(grafica(e,angulo=A_1,angulo2=A_2), expand=True)
+            container_grafica.controls.append(light_graph)
+        except:
+            page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+            page.snack_bar.open = True
+            page.update()
+        
             
     def limpiar_ley(e):
         Indice_1.value = ''
         Indice_2.value = ''
         Angulo_1.value= ''
         Angulo_2.value = ''
-        container_grafica.controls.pop()
+        try:
+            container_grafica.controls.pop()
+        except:
+            pass
         page.update()
         
-    
-          
+           
     type_snell = ft.RadioGroup(content=ft.Row([
         ft.Radio(value="light", label="Luz"),
         ft.Radio(value="wave", label="Otra Onda"),],alignment= ft.MainAxisAlignment.CENTER
-    ),on_change=change_type_snell,)
-     
-     
+    ),on_change=change_type_snell,)  
     Indice_1 = ft.TextField(on_change=controls.cambio_Textfield,suffix_text='i',disabled=True)
     Indice_2 = ft.TextField(on_change=controls.cambio_Textfield,suffix_text='r',disabled=True)
     Angulo_1 = ft.TextField(label="Angulo incidente:", on_change=controls.cambio_Textfield,suffix_text='θi',disabled=True)
@@ -195,6 +240,7 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
         )
     )
     container_grafica = ft.Row()
+       
                  
     page.add(
         controls.header_page(Volver_main=Volver_main, e=ft.Container),
@@ -203,4 +249,3 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
         controls.Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley),
         container_grafica,
     )
-
