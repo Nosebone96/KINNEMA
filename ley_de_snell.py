@@ -6,15 +6,10 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-def ley_de_snell(page: ft.Page) -> ft.Page:
+def ley_de_snell(page: ft.Page) -> ft.View:
+    page.title = 'Ley de Snell'
     page.scroll = ft.ScrollMode.ALWAYS
-    
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
-    
-    
+        
     def change_type_snell(e):
         Indice_1.disabled = False
         Indice_2.disabled = False
@@ -242,10 +237,13 @@ def ley_de_snell(page: ft.Page) -> ft.Page:
     container_grafica = ft.Row()
        
                  
-    page.add(
-        controls.header_page(Volver_main=Volver_main, e=ft.Container),
-        type_snell,
-        textfields,
-        controls.Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley),
-        container_grafica,
+    return ft.View(
+        "/Ley_de_snell",
+        [
+            controls.header_page(page),
+            type_snell,
+            textfields,
+            controls.Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley),
+            container_grafica,
+        ],scroll=True
     )

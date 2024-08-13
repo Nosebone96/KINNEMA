@@ -11,10 +11,7 @@ def main_MRUV(page: ft.Page):
     pio.renderers.default = 'svg'
     page.scroll = ft.ScrollMode.ALWAYS
     page.title = 'Movimiento Rectilíneo Uniformemente Variado'
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+
     Distancia_segundos = []
     velocidad_segundos = []
     Aceleracion_segundos = []
@@ -324,7 +321,10 @@ def main_MRUV(page: ft.Page):
         ]
     )
 
-    page.add(
-        controls.header_page(Volver_main=Volver_main, e=ft.Container),
-        tabs,        
+    return ft.View(
+        "/MRUV",
+        [
+            controls.header_page(page),
+            tabs,
+        ],scroll=True     
     )

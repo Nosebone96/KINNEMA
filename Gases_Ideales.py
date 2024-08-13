@@ -1,7 +1,7 @@
 import flet as ft
 import importlib 
 from App_important_controls import controls
-def main_gases(page: ft.Page):
+def main_gases(page: ft.Page) -> ft.View:
     page.title = "Gases Ideales"
     
     def Calcular_boyle(e):

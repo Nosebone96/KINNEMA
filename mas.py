@@ -6,12 +6,7 @@ from flet.plotly_chart import PlotlyChart
 from plotly.subplots import make_subplots
 from App_important_controls import controls
 
-def main_mas(page: ft.Page) -> ft.Page:
-    page.scroll = ft.ScrollMode.ALWAYS
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+def main_mas(page: ft.Page) -> ft.View:
     page.title = 'Movimiento Armonico Simple'
 
     def calculate_period(length, gravity):
@@ -234,14 +229,18 @@ def main_mas(page: ft.Page) -> ft.Page:
         ]
     )
 
-    page.add(
-        ft.Column(
-            controls=[
-                controls.header_page(Volver_main=Volver_main, e=ft.Container),
-                ft.Container(
-                    content=tabs_mas, 
-                    margin= ft.margin.only(top= 10, left= 0, right=0)
-                ),
-            ]
-        )
+    return ft.View(
+        "/MAS",
+        [
+            ft.Column(
+                controls=[
+                    controls.header_page(page),
+                    ft.Container(
+                        content=tabs_mas, 
+                        margin= ft.margin.only(top= 10, left= 0, right=0)
+                    ),
+                ]
+            )
+        ],scroll=True
+        
     )

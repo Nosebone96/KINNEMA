@@ -2,12 +2,8 @@ import flet as ft
 import math
 from App_important_controls import controls
 
-def main_energia_mecanica(page: ft.Page) -> ft.Page:
+def main_energia_mecanica(page: ft.Page) -> ft.View:
     page.scroll = ft.ScrollMode.HIDDEN
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
     
     def Calcular_EC(e):
         i = 0
@@ -225,14 +221,18 @@ def main_energia_mecanica(page: ft.Page) -> ft.Page:
         height=600,
     )
     
-    page.add(
-        ft.Column(
-            controls=[
-                controls.header_page(Volver_main=Volver_main, e=ft.Container),
-                ft.Container(
-                    content=Tabs_mecanica, 
-                    margin= ft.margin.only(top= 10, left= 0, right=0)
-                ),
-            ]
-        )
+    return ft.View(
+        "/Energia_mecanica",
+        [
+            ft.Column(
+                controls=[
+                    controls.header_page(page),
+                    ft.Container(
+                        content=Tabs_mecanica, 
+                        margin= ft.margin.only(top= 10, left= 0, right=0)
+                    ),
+                ]
+            )
+        ],scroll=True
+        
     )

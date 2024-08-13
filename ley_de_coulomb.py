@@ -2,11 +2,7 @@ import flet as ft
 import math as m
 from App_important_controls import controls
 
-def ley_de_coulomb(page: ft.Page) -> ft.Page:
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+def ley_de_coulomb(page: ft.Page) -> ft.View:
 
     def calculate_coulomb_law(q1, q2, r):
         """Calcula la fuerza entre dos cargas"""
@@ -99,14 +95,18 @@ def ley_de_coulomb(page: ft.Page) -> ft.Page:
         padding=30
     )
 
-    page.add(
-        ft.Column(
-            controls=[
-                controls.header_page(Volver_main=Volver_main, e=ft.Container),
-                ft.Container(
-                    content=content_coulomb, 
-                    margin= ft.margin.only(top= 10, left= 0, right=0)
-                ),
-            ]
-        )
+    return ft.View(
+        "/Ley_de_coulomb",
+        [
+            ft.Column(
+                controls=[
+                    controls.header_page(page),
+                    ft.Container(
+                        content=content_coulomb, 
+                        margin= ft.margin.only(top= 10, left= 0, right=0)
+                    ),
+                ]
+            )
+        ],scroll=True
+        
     )

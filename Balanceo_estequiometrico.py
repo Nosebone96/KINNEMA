@@ -3,12 +3,9 @@ from chempy import balance_stoichiometry
 from App_important_controls import controls
 
 
-def Balaceo_estequiometrico_main(page: ft.Page) -> ft.Page:
+def Balaceo_estequiometrico_main(page: ft.Page) -> ft.View:
     page.title = "Balanceo de ecuaciones estequiométricas"
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+
     
     input_reactivos = ft.Ref[ft.TextField]()
     input_productos = ft.Ref[ft.TextField]()
@@ -57,14 +54,18 @@ def Balaceo_estequiometrico_main(page: ft.Page) -> ft.Page:
 
         return ' + '.join(formatted_parts)
 
-    page.add(
-        controls.header_page(Volver_main=Volver_main, e=ft.Container),
-        ft.TextField(ref=input_reactivos, label="Reactivos"),
-        ft.TextField(ref=input_productos, label="Productos"),
-        controls.Buttons(ft.Container, Calcular=balancear_click, Limpiar=limpiar_click),
-        ft.Text(ref=ecuacion_balanceada),
-        ft.Text("Reactivos:"),
-        ft.Text(ref=reactivos_resultado),
-        ft.Text("Productos:"),
-        ft.Text(ref=productos_resultado),
+    return ft.View(
+        "/Balanceo_estequiometrico",
+        [
+            controls.header_page(page),
+            ft.TextField(ref=input_reactivos, label="Reactivos"),
+            ft.TextField(ref=input_productos, label="Productos"),
+            controls.Buttons(ft.Container, Calcular=balancear_click, Limpiar=limpiar_click),
+            ft.Text(ref=ecuacion_balanceada),
+            ft.Text("Reactivos:"),
+            ft.Text(ref=reactivos_resultado),
+            ft.Text("Productos:"),
+            ft.Text(ref=productos_resultado),
+        ],scroll=True
+        
     )

@@ -2,12 +2,7 @@ import flet as ft
 from flet import colors
 from App_important_controls import controls
 
-def main_valor_resistencia(page: ft.Page) -> ft.Page:
-    
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+def main_valor_resistencia(page: ft.Page) -> ft.View:
     
     color_map = {
         'negro': colors.BLACK,
@@ -158,13 +153,17 @@ def main_valor_resistencia(page: ft.Page) -> ft.Page:
         tolerancia: color_tolerancia,
     }
     
-    page.add(
-        controls.header_page(Volver_main=Volver_main, e=ft.Container),
-        dropdowns,
-        ft.Divider(height=50, thickness=0),
-        draw_resistance,
-        ft.Divider(height=50, thickness=0),
-        controls.Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
-        resultado,
-        valor_tolerancia
+    return ft.View(
+        "/Valor_resistencia",
+        [
+            controls.header_page(page),
+            dropdowns,
+            ft.Divider(height=50, thickness=0),
+            draw_resistance,
+            ft.Divider(height=50, thickness=0),
+            controls.Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
+            resultado,
+            valor_tolerancia
+        ],scroll=True
+        
     )

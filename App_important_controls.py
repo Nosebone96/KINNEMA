@@ -2,19 +2,15 @@ import flet as ft
 
 class controls:
     
-    def header_page(e, Volver_main) -> ft.Container:
-        return ft.Container(
-            ft.Row(
-                [
-                    ft.IconButton(
-                        icon= ft.icons.KEYBOARD_ARROW_LEFT_SHARP,
-                        icon_size=40,
-                        icon_color='blue',
-                        on_click=Volver_main,
-                    )
-                ]
-            ), margin= ft.margin.only(bottom=30, top=30)
+    def header_page(page: ft.Page):
+        page = page
+        app_bar = ft.Container(
+            content=ft.Row(
+                [ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda e: page.go("/")),],
+            )
+            
         )
+        return app_bar
         
     def Buttons(e, Calcular, Limpiar) -> ft.Container:
         return ft.Container(

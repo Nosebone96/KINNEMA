@@ -1,11 +1,8 @@
 import flet as ft
 from App_important_controls import controls
 
-def Carga_electrica(page: ft.Page) -> ft.Page:
-    def Volver_main(e):
-        page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+def Carga_electrica(page: ft.Page) -> ft.View:
+    page.title = 'Carga electrica'
     
     def calculate_electrical_charge(N, elc=1.602e-19): 
         return N * elc 
@@ -50,14 +47,18 @@ def Carga_electrica(page: ft.Page) -> ft.Page:
         margin=20,
         padding=30
     )
-    page.add(
-        ft.Column(
-            controls=[
-                controls.header_page(Volver_main=Volver_main, e=ft.Container),
-                ft.Container(
-                    content=content_electrical, 
-                    margin= ft.margin.only(top= 10, left= 0, right=0)
-                ),
-            ]
-        )
+    return ft.View(
+        "/Carga_electrica",
+        [
+            ft.Column(
+                controls=[
+                    controls.header_page(page),
+                    ft.Container(
+                        content=content_electrical, 
+                        margin= ft.margin.only(top= 10, left= 0, right=0)
+                    ),
+                ]
+            )
+        ],scroll=True
+        
     )
