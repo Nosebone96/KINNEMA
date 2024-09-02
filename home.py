@@ -38,5 +38,9 @@ def home(page: ft.Page) -> ft.View:
                 'Ley de Coulomb',
                 on_click= lambda e: page.go('/ley_de_coulomb')
             ),
+            ft.ElevatedButton(
+                'Triangulo',
+                on_click= lambda e: page.go('/Triangulo')
+            )
         ],scroll=True
     )

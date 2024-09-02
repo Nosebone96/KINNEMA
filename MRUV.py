@@ -326,5 +326,5 @@ def main_MRUV(page: ft.Page):
         [
             controls.header_page(page),
             tabs,
-        ],scroll=True     
+        ],scroll=True
     )

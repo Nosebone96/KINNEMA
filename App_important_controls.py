@@ -34,9 +34,9 @@ class controls:
                         width=150,
                         icon_color="red",
                     ),
-                ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.START, height=50)
-            
+                ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.START, height=50
             )
+        )
     def cambio_Textfield(e):
             Textfields = e.control
             try:
