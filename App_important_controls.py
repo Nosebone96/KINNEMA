@@ -5,10 +5,17 @@ class controls:
     def header_page(page: ft.Page):
         page = page
         app_bar = ft.Container(
-            content=ft.Row(
-                [ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda e: page.go("/")),],
-            )
-            
+            content=ft.Column(
+                [
+                    ft.Row(
+                        [
+                            ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda e: page.go("/")),
+                            ft.IconButton(ft.icons.CODE_ROUNDED, url='https://github.com/Nosebone96/KINNEMA')
+                        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+                    ),
+                    ft.Divider(height=1, color='white'),
+                ]
+            ),margin=ft.margin.only(bottom=20,top=10),padding=ft.padding.only(left=10,right=10)
         )
         return app_bar
         
@@ -47,4 +54,14 @@ class controls:
             if Textfields.value == '':
                 Textfields.border_color = ft.TextField.border_color
             Textfields.update()
+            
+    def background(e) -> ft.Container:
+        return ft.Container(
+            gradient=ft.LinearGradient(
+                begin=ft.alignment.bottom_left,
+                end=ft.alignment.top_right,
+                colors=["#000000", "#151515", "#0C213B", "#194071", "#2589D0"]
+            ),
+            expand=True, margin=0, padding=0
+        )
     

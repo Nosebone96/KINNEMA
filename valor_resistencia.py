@@ -153,9 +153,8 @@ def main_valor_resistencia(page: ft.Page) -> ft.View:
         tolerancia: color_tolerancia,
     }
     
-    return ft.View(
-        "/Valor_resistencia",
-        [
+    column = ft.Column(
+        controls=[
             controls.header_page(page),
             dropdowns,
             ft.Divider(height=50, thickness=0),
@@ -164,6 +163,42 @@ def main_valor_resistencia(page: ft.Page) -> ft.View:
             controls.Buttons(ft.Container, Calcular=calcular, Limpiar=limpiar),
             resultado,
             valor_tolerancia
-        ],scroll=True
+            
+        ],
+        scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
+        width=page.width + 10,
+        height=page.height
+    )
+    
+    content = ft.Row(
+        controls=[
+            column
+        ],
+        scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
+        width=page.width
+    )
+    
+
+    stack = ft.Stack(
+        [
+            controls.background(ft.Container),
+            content,
+        ],expand=True
+    )
+    
+    def resized(e):
+        column.width = page.width + 10
+        column.height = page.height
+        content.width = page.width + 10
+        page.update()
+    
+    page.on_resized = resized
+
+    
+    return ft.View(
+        "/Valor_resistencia",
+        [
+            stack,   
+        ],padding=0
         
     )

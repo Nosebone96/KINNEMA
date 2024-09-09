@@ -11,6 +11,8 @@ import Balanceo_estequiometrico
 import ley_de_coulomb 
 import Carga_electrica 
 import Triangulo
+import porcentaje_error
+from App_important_controls import controls as ct
 
 import plotly.io as pio
 pio.renderers.default = 'svg'
@@ -24,8 +26,8 @@ def main(page: ft.Page) -> ft.Page:
     page.scroll = ft.ScrollMode.ALWAYS
     page.padding = 15
     #page.views.scroll = True
-    page.window_bgcolor = ft.colors.TRANSPARENT
-    page.bgcolor = ft.colors.TRANSPARENT
+    
+    
     
     def change_route(route):
         page.views.clear()
@@ -49,6 +51,8 @@ def main(page: ft.Page) -> ft.Page:
             page.views.append(Balanceo_estequiometrico.Balaceo_estequiometrico_main(page))
         elif page.route == "/Triangulo":
             page.views.append(Triangulo.main_triangulo(page))
+        elif page.route == "/Porcentaje_error":
+            page.views.append(porcentaje_error.porcentaje_error(page))
         page.update()
             
     def view_pop(view):
@@ -60,6 +64,7 @@ def main(page: ft.Page) -> ft.Page:
     page.on_route_change = change_route
     page.on_view_pop = view_pop
     page.go(page.route)
+    
 
 if __name__ == '__main__':
     ft.app(target=main)

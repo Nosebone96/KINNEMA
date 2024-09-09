@@ -1,10 +1,12 @@
 import flet as ft
+from App_important_controls import controls as ct
 
 def home(page: ft.Page) -> ft.View:
     page.title = 'Home'
     page.scroll = ft.ScrollMode.ALWAYS
-    return ft.View(
-        '/',
+    
+    
+    Contenido = ft.Column(
         [
             ft.ElevatedButton(
                 'Movimiento Armonico Simple',
@@ -41,6 +43,24 @@ def home(page: ft.Page) -> ft.View:
             ft.ElevatedButton(
                 'Triangulo',
                 on_click= lambda e: page.go('/Triangulo')
-            )
-        ],scroll=True
+            ),
+            ft.ElevatedButton(
+                'porcentaje de error',
+                on_click=lambda e: page.go('/Porcentaje_error')
+            ),
+        ],alignment=ft.MainAxisAlignment.CENTER,
+    )
+    
+    stack = ft.Stack(
+        [
+            ct.background(ft.Container),
+            Contenido,
+        ],expand=True
+    )
+    
+    return ft.View(
+        '/',
+        [
+            stack
+        ],padding=0
     )

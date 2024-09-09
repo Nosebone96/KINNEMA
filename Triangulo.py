@@ -60,11 +60,10 @@ def main_triangulo(page:ft.Page)-> ft.View:
             except ValueError:
                 self.C = 0
                 self.angulos_faltantes +=1
+            print(f'ladosf:{self.lados_faltantes} angulosf:{self.angulos_faltantes}')
             i = 0
-            print(self.lados_faltantes)
-            print(self.angulos_faltantes)
             print('_______________________________________')
-            while angulo_a == 0 or angulo_b == 0 or angulo_c == 0 or lado_a == 0 or lado_b == 0 or lado_c == 0 or i <= 2:
+            while (self.angulos_faltantes > 0 or self.lados_faltantes > 0) and i <= 2:
                 print(f'vuelta {i} ladosf:{self.lados_faltantes} angulosf:{self.angulos_faltantes}')
                 if self.a == 0 or self.b == 0 or self.c == 0:
                     if self.angulos_faltantes <= 2 and self.lados_faltantes <= 1:
@@ -142,8 +141,10 @@ def main_triangulo(page:ft.Page)-> ft.View:
                         angulo_b.value = f'{round(self.B, 2)}'
                         self.angulos_faltantes -= 1 
                         angulo_b.update()
-            except:
-                print('error ley del seno all')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por la ley del seno all')
         
         def ley_coseno_LLL(self):
@@ -166,8 +167,10 @@ def main_triangulo(page:ft.Page)-> ft.View:
                     angulo_c.value = f'{round(self.C, 2)}'
                     self.angulos_faltantes -= 1
                     angulo_c.update()
-            except KeyError:
-                print('error ley del coseno lll')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por la ley del coseno lll')
     
         def ley_seno_ALA(self):
@@ -222,8 +225,10 @@ def main_triangulo(page:ft.Page)-> ft.View:
                         lado_b.value = f'{round(self.b, 2)}'
                         self.lados_faltantes -= 1
                         lado_b.update()
-            except:
-                print('error en ley seno')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por la ley del seno')
             
 
@@ -244,52 +249,66 @@ def main_triangulo(page:ft.Page)-> ft.View:
                     lado_c.value = f'{round(self.c, 2)}'
                     self.lados_faltantes -= 1
                     lado_c.update()
-            except ValueError:
-                print('error ley coseno lal')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por la ley del coseno lal')
             
         
         def semiperimetro_triangulo(self) -> float:
             try:
                 return (self.a + self.b + self.c) / 2
-            except:
-                print('error en semiperimetro')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por semiperimetro')
         
         
         def area_triangulo(self) -> float:
             try:
                 return Math.sqrt(self.semiperimetro * (self.semiperimetro - self.a) * (self.semiperimetro - self.b) * (self.semiperimetro - self.c))
-            except:
-                print('error en area')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por area')
         
         def hl_triangulo(self,p) -> float:
             try:
                 return (2 * self.area) / p
-            except:
-                print('error en altura ha')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por altura ha')
             
         def inradio_triangulo(self) -> float:
             try:
                 return self.area / self.semiperimetro
-            except:
-                print('error en inradio')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por inradio')
         
         def circunradio_triangulo(self) -> float:
             try:
                 return self.a * self.b * self.c / (4 * self.area)
-            except:
-                print('error en circunradio')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por circunradio')
             
         def mediana(self, p1, p2, p3) -> float:
             try:
                 return 1/2 * Math.sqrt( 2 * Math.pow(p1, 2) + 2 * Math.pow(p2, 2) - Math.pow(p3, 2))
-            except ValueError:
-                print('error en mediana')
+            except Exception as error:
+                print(error)
+                page.snack_bar = ft.SnackBar(ft.Text("Error: Verifica que los datos digitados sean correctos"))
+                page.snack_bar.open = True
             print('pasa por mediana')
             
             
@@ -314,24 +333,24 @@ def main_triangulo(page:ft.Page)-> ft.View:
         page.update()
     
     
-    lado_a = ft.TextField(label="Lado A",width=300)
-    lado_b = ft.TextField(label="Lado B", width=300)
-    lado_c = ft.TextField(label="Lado C",width=300)
-    angulo_a = ft.TextField(label="Angulo A",width=300)
-    angulo_b = ft.TextField(label="Angulo B", width=300)
-    angulo_c = ft.TextField(label="Angulo C", width=300)
+    lado_a = ft.TextField(label="Lado A",width=230)
+    lado_b = ft.TextField(label="Lado B", width=230)
+    lado_c = ft.TextField(label="Lado C",width=230)
+    angulo_a = ft.TextField(label="Angulo A",width=230)
+    angulo_b = ft.TextField(label="Angulo B", width=230)
+    angulo_c = ft.TextField(label="Angulo C", width=230)
     
-    area = ft.TextField(label="Area",disabled=True, width=200)
-    perimetro = ft.TextField(label="Perimetro",disabled=True, width=200)
-    semiperimetro = ft.TextField(label="Semiperimetro", disabled=True, width=200)
-    altura_ha = ft.TextField(label="Altura ha", disabled=True, width=200)
-    altura_hb = ft.TextField(label="Altura hb", disabled=True, width=200)
-    altura_hc = ft.TextField(label="Altura hc", disabled=True, width=200)
-    inradio = ft.TextField(label="Inradio", disabled=True, width=200)
-    circunradio = ft.TextField(label="Circunradio", disabled=True, width=200)
-    Mediana_ma = ft.TextField(label="Mediana ma", disabled=True, width=200)
-    Mediana_mb = ft.TextField(label="Mediana mb", disabled=True, width=200)
-    Mediana_mc = ft.TextField(label="Mediana mc", disabled=True, width=200)
+    area = ft.TextField(label="Area",disabled=True, width=150)
+    perimetro = ft.TextField(label="Perimetro",disabled=True, width=150)
+    semiperimetro = ft.TextField(label="Semiperimetro", disabled=True, width=150)
+    altura_ha = ft.TextField(label="Altura ha", disabled=True, width=150)
+    altura_hb = ft.TextField(label="Altura hb", disabled=True, width=150)
+    altura_hc = ft.TextField(label="Altura hc", disabled=True, width=150)
+    inradio = ft.TextField(label="Inradio", disabled=True, width=150)
+    circunradio = ft.TextField(label="Circunradio", disabled=True, width=150)
+    Mediana_ma = ft.TextField(label="Mediana ma", disabled=True, width=150)
+    Mediana_mb = ft.TextField(label="Mediana mb", disabled=True, width=150)
+    Mediana_mc = ft.TextField(label="Mediana mc", disabled=True, width=150)
     
     
     lados_angulos = ft.Container(
@@ -354,13 +373,46 @@ def main_triangulo(page:ft.Page)-> ft.View:
             ]
         )
     )
+    
+    
+    column = ft.Column(
+        controls=[
+            controls.header_page(page),
+            lados_angulos,
+            datos,
+        ],
+        scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
+        width=page.width,
+        height=page.height
+    )
+    
+    content = ft.Row(
+        controls=[
+            column
+        ],
+        scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
+        width=page.width
+    )
+    
+
+    stack = ft.Stack(
+        [
+            controls.background(ft.Container),
+            content,
+        ],expand=True
+    )
+    
+    def resized(e):
+        column.width = page.width
+        column.height = page.height
+        content.width = page.width
+        page.update()
+    
+    page.on_resized = resized
 
     return ft.View(
         "/Triangulo",
         [
-            controls.header_page(page),
-            lados_angulos,
-            datos,
-        ]
+            stack,
+        ],padding=0,
     )
-    

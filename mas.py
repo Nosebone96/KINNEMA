@@ -217,6 +217,8 @@ def main_mas(page: ft.Page) -> ft.View:
     tabs_mas = ft.Tabs(
         selected_index=0,
         animation_duration=400,
+        width=1000,
+        height=1300,
         tabs=[
             ft.Tab(
                 text='Sistema de péndulo simple',

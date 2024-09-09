@@ -320,11 +320,45 @@ def main_MRUV(page: ft.Page):
             )
         ]
     )
+    
+    
+    column = ft.Column(
+        controls=[
+            controls.header_page(page),
+            tabs,
+        ],
+        scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
+        width=page.width,
+        height=page.height
+    )
+    
+    content = ft.Row(
+        controls=[
+            column
+        ],
+        scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
+        width=page.width
+    )
+    
+
+    stack = ft.Stack(
+        [
+            controls.background(ft.Container),
+            content,
+        ],expand=True
+    )
+    
+    def resized(e):
+        column.width = page.width
+        column.height = page.height
+        content.width = page.width
+        page.update()
+    
+    page.on_resized = resized
 
     return ft.View(
         "/MRUV",
         [
-            controls.header_page(page),
-            tabs,
-        ],scroll=True
+            stack,
+        ],padding=0
     )

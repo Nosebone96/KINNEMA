@@ -21,10 +21,7 @@ def ley_de_snell(page: ft.Page) -> ft.View:
         else:
             Indice_1.label = "velocidad de la onda incidente:"
             Indice_2.label = "velocidad de la onda refractada:"
-        Indice_1.update()
-        Indice_2.update()
-        Angulo_1.update()
-        Angulo_2.update()
+        textfields.update()
      
         
     def grafica(e, angulo, angulo2):
@@ -236,14 +233,49 @@ def ley_de_snell(page: ft.Page) -> ft.View:
     )
     container_grafica = ft.Row()
        
-                 
-    return ft.View(
-        "/Ley_de_snell",
-        [
+    
+    column = ft.Column(
+        controls=[
             controls.header_page(page),
             type_snell,
             textfields,
             controls.Buttons(ft.Container, Calcular=calcular_ley_snell, Limpiar=limpiar_ley),
             container_grafica,
-        ],scroll=True
+        ],
+        scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
+        width=page.width,
+        height=page.height
+    )
+    
+    content = ft.Row(
+        controls=[
+            column
+        ],
+        scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
+        width=page.width
+    )
+    
+
+    stack = ft.Stack(
+        [
+            controls.background(ft.Container),
+            content,
+        ],expand=True
+    )
+    
+    def resized(e):
+        column.width = page.width
+        column.height = page.height
+        content.width = page.width
+        page.update()
+    
+    page.on_resized = resized
+
+    
+                 
+    return ft.View(
+        "/Ley_de_snell",
+        [
+            stack
+        ],padding=0
     )
