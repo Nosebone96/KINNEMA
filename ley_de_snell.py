@@ -277,5 +277,5 @@ def ley_de_snell(page: ft.Page) -> ft.View:
         "/Ley_de_snell",
         [
             stack
-        ],padding=0
+        ],padding=0,
     )

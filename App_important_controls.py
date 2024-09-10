@@ -58,8 +58,8 @@ class controls:
     def background(e) -> ft.Container:
         return ft.Container(
             gradient=ft.LinearGradient(
-                begin=ft.alignment.bottom_left,
-                end=ft.alignment.top_right,
+                begin=ft.alignment.center_left,
+                end=ft.alignment.center_right,
                 colors=["#000000", "#151515", "#0C213B", "#194071", "#2589D0"]
             ),
             expand=True, margin=0, padding=0

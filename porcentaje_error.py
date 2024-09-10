@@ -28,52 +28,65 @@ def porcentaje_error(page: ft.Page) -> ft.View:
     exact2 = ft.TextField(label='Valor exacto', width=250)
     #variables de salida
     absolute_error = ft.TextField(label='Error',width=250,disabled=True)
-    
-    formula2 = ft.Row(
-        controls=[
-            ft.Container(
-                content=ft.Column(
-                    controls=[
-                        ft.Row(
-                            controls=[
-                                aproximate,
-                                ft.Text('-',size=40,color=ft.colors.BLUE_ACCENT),
-                                exact1,
-                            ],alignment=ft.MainAxisAlignment.CENTER
-                        ),
-                        ft.Container(height=2, width=600,bgcolor=ft.colors.BLUE_ACCENT,),
-                        ft.Row(
-                            controls=[exact2], alignment=ft.MainAxisAlignment.CENTER
-                        )
-                    ]
-                ),height=130
-            ),
-            ft.Text('X 100% = ',size=30,color=ft.colors.BLUE_ACCENT),
-            absolute_error,
-        ]
+    formula2 = ft.Container(
+        content=ft.Row(
+            controls=[
+                ft.Container(
+                    content=ft.Column(
+                        controls=[
+                            ft.Row(
+                                controls=[
+                                    aproximate,
+                                    ft.Text('-',size=40,color=ft.colors.BLUE_ACCENT),
+                                    exact1,
+                                ],alignment=ft.MainAxisAlignment.CENTER
+                            ),
+                            ft.Container(height=2, width=600,bgcolor=ft.colors.BLUE_ACCENT,),
+                            ft.Row(
+                                controls=[exact2], alignment=ft.MainAxisAlignment.CENTER
+                            )
+                        ]
+                    ),height=130
+                ),
+                ft.Text('X 100% = ',size=30,color=ft.colors.BLUE_ACCENT),
+                absolute_error,
+            ]
+        ), height=page.height,width=page.width
     )
+    
+    column = ft.Column(
+        controls=[
+            ct.header_page(page),
+            formula2,
+        ],
+        scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
+        width=page.width,
+        height=page.height
+    )
+    
     content = ft.Row(
         controls=[
-            ft.Column(
-                controls=[
-                    ct.header_page(page),
-                    formula2,
-                ],
-                scroll=ft.ScrollMode.AUTO,  # Permite scroll vertical
-                width=1000,
-                height=page.height
-            )
+            column
         ],
         scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
-        width=1000
+        width=page.width
     )
     
+
     stack = ft.Stack(
         [
             ct.background(ft.Container),
             content,
         ],expand=True
     )
+    
+    def resized(e):
+        column.width = page.width
+        column.height = page.height
+        content.width = page.width
+        page.update()
+    
+    page.on_resized = resized
     
     return ft.View(
         '/Porcentaje_error',

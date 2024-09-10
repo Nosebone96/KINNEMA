@@ -5,48 +5,53 @@ def home(page: ft.Page) -> ft.View:
     page.title = 'Home'
     page.scroll = ft.ScrollMode.ALWAYS
     
-    
     Contenido = ft.Column(
         [
-            ft.ElevatedButton(
-                'Movimiento Armonico Simple',
-                on_click= lambda e: page.go('/MAS')
+            ft.OutlinedButton(
+                on_click= lambda e: page.go('/MAS'),
+                content=ft.Row(
+                    controls=[
+                        ft.Icon(name=ft.icons.DIRECTIONS_CAR_OUTLINED, color='white'),
+                        ft.Text(value='Movimiento Armonico Simple'),   
+                    ]
+                )
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'ir a Balanceo Estequiometrico',
                 on_click= lambda e: page.go('/Balanceo_estequiometrico')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'ir a MRUV (cinematica)',
                 on_click=lambda e: page.go('/MRUV')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'valor de una resistencia',
                 on_click= lambda e: page.go('/Valor_resistencia')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'Energía mecanica',
                 on_click= lambda e: page.go('/Energia_mecanica')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'Ley de Snell',
                 on_click= lambda e: page.go('/Ley_de_snell')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'Carga electrica',
                 on_click= lambda e: page.go('/Carga_electrica')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'Ley de Coulomb',
                 on_click= lambda e: page.go('/ley_de_coulomb')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'Triangulo',
                 on_click= lambda e: page.go('/Triangulo')
             ),
-            ft.ElevatedButton(
+            ft.OutlinedButton(
                 'porcentaje de error',
-                on_click=lambda e: page.go('/Porcentaje_error')
+                on_click=lambda e: page.go('/Porcentaje_error'),
+                
             ),
         ],alignment=ft.MainAxisAlignment.CENTER,
     )
