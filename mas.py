@@ -47,7 +47,6 @@ def main_mas(page: ft.Page) -> ft.View:
 
     def calcular_pp(e):
         try:
-            amplitude = float(a_pendulo.value)
             if p_pendulo.value and l_pendulo.value:
                 period = float(p_pendulo.value)
                 length = float(l_pendulo.value)
@@ -59,7 +58,6 @@ def main_mas(page: ft.Page) -> ft.View:
                 g_pendulo.value = f"{gravity:.2f}"
                 f_pendulo.value = f"{frequency:.2f}"
                 fa_pendulo.value = f"{angular_frequency:.2f}"
-                a_pendulo.value = f"{amplitude:.2f}"
             elif p_pendulo.value and g_pendulo.value:
                 period = float(p_pendulo.value)
                 gravity = float(g_pendulo.value)
@@ -71,7 +69,6 @@ def main_mas(page: ft.Page) -> ft.View:
                 g_pendulo.value = f"{gravity:.2f}"
                 f_pendulo.value = f"{frequency:.2f}"
                 fa_pendulo.value = f"{angular_frequency:.2f}"
-                a_pendulo.value = f"{amplitude:.2f}"
             elif l_pendulo.value and g_pendulo.value:
                 length = float(l_pendulo.value)
                 gravity = float(g_pendulo.value)
@@ -82,7 +79,6 @@ def main_mas(page: ft.Page) -> ft.View:
                 l_pendulo.value = f"{length:.2f}"
                 g_pendulo.value = f"{gravity:.2f}"
                 f_pendulo.value = f"{frequency:.2f}"
-                a_pendulo.value = f"{amplitude:.2f}"
                 fa_pendulo.value = f"{angular_frequency:.2f}"
             else:
                 print("Invalid values")
@@ -90,9 +86,6 @@ def main_mas(page: ft.Page) -> ft.View:
         except ValueError as e:
             print("invalid values failed")
             return
-
-        chart = PlotlyChart(plot_sinusoidal_graphs(amplitude, frequency))
-        content_pendulo.content.controls.append(chart)  
         page.update()
 
 
