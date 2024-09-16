@@ -86,6 +86,7 @@ def main_mas(page: ft.Page) -> ft.View:
         except ValueError as e:
             print("invalid values failed")
             return
+        
         page.update()
 
 
