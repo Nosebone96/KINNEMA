@@ -1,6 +1,6 @@
 import flet as ft
 from chempy import balance_stoichiometry
-from App_important_controls import controls
+from Models import controls
 
 
 def Balaceo_estequiometrico_main(page: ft.Page) -> ft.View:

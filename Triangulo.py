@@ -1,6 +1,6 @@
 import flet as ft
 import math as Math
-from App_important_controls import controls
+from Models import controls
 
 def main_triangulo(page:ft.Page)-> ft.View:
     page.title = "Resolución de Triangulo"

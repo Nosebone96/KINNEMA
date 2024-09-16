@@ -3,7 +3,7 @@ import plotly.io as pio
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
 import time
-from App_important_controls import controls
+from Models import controls
 import math as m
 import threading
 
