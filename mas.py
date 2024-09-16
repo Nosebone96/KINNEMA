@@ -4,7 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
 from plotly.subplots import make_subplots
-from App_important_controls import controls
+from Models import controls
 
 def main_mas(page: ft.Page) -> ft.View:
     page.title = 'Movimiento Armonico Simple'
@@ -210,7 +210,7 @@ def main_mas(page: ft.Page) -> ft.View:
     tabs_mas = ft.Tabs(
         selected_index=0,
         animation_duration=400,
-        width=1000,
+        width=page.width,
         height=1300,
         tabs=[
             ft.Tab(

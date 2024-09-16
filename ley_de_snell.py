@@ -1,6 +1,6 @@
 import math 
 import flet as ft 
-from App_important_controls import controls
+from Models import controls
 from flet.plotly_chart import PlotlyChart
 import numpy as np
 import plotly.graph_objects as go

@@ -1,6 +1,6 @@
 import flet as ft
 import importlib 
-from App_important_controls import controls
+from Models import controls
 def main_gases(page: ft.Page) -> ft.View:
     page.title = "Gases Ideales"
     
@@ -84,8 +84,8 @@ def main_gases(page: ft.Page) -> ft.View:
 
     def Volver_main(e):
         page.controls.clear()
-        import Menu_principal
-        page.go(Menu_principal.main(page))
+        import app
+        page.go(app.main(page))
 
     tabs = ft.Tabs(
         selected_index=0,

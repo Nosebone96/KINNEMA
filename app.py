@@ -9,10 +9,10 @@ import ley_de_snell
 import mas 
 import Balanceo_estequiometrico 
 import ley_de_coulomb 
-import Carga_electrica 
+import Carga_electrica
 import Triangulo
 import porcentaje_error
-from App_important_controls import controls as ct
+from Models import controls as ct
 
 import plotly.io as pio
 pio.renderers.default = 'svg'
@@ -36,13 +36,13 @@ def main(page: ft.Page) -> ft.Page:
         elif page.route == "/Valor_resistencia":
             page.views.append(valor_resistencia.main_valor_resistencia(page))
         elif page.route == "/MRUV":
-            page.views.append(MRUV.main_MRUV(page)) 
+            page.views.append(MRUV.main_MRUV(page))
         elif page.route == "/MAS":
-            page.views.append(mas.main_mas(page)) 
+            page.views.append(mas.main_mas(page))
         elif page.route == "/Ley_de_snell":
             page.views.append(ley_de_snell.ley_de_snell(page)) 
         elif page.route == "/ley_de_coulomb":
-            page.views.append(ley_de_coulomb.ley_de_coulomb(page)) 
+            page.views.append(ley_de_coulomb.ley_de_coulomb(page))
         elif page.route == "/Energia_mecanica":
             page.views.append(Energia_mecanica.main_energia_mecanica(page)) 
         elif page.route == "/Carga_electrica":
@@ -68,6 +68,3 @@ def main(page: ft.Page) -> ft.Page:
 
 if __name__ == '__main__':
     ft.app(target=main)
-    
-
-

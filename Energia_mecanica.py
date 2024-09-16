@@ -1,6 +1,6 @@
 import flet as ft
 import math
-from App_important_controls import controls
+from Models import controls
 
 def main_energia_mecanica(page: ft.Page) -> ft.View:
     page.scroll = ft.ScrollMode.HIDDEN
