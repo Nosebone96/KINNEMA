@@ -84,8 +84,8 @@ def main_gases(page: ft.Page) -> ft.View:
 
     def Volver_main(e):
         page.controls.clear()
-        import app
-        page.go(app.main(page))
+        import main
+        page.go(main.main(page))
 
     tabs = ft.Tabs(
         selected_index=0,
