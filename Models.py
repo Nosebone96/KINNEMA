@@ -74,7 +74,7 @@ class controls:
     def example(page: ft.Page):
         size = 10
         gap = 3
-        duration = 2000
+        duration = 1500
         
 
         c1 = colors.PINK_500
@@ -263,30 +263,16 @@ class controls:
             page.update()
 
         go_button = ElevatedButton("Go!", on_click=assemble, visible=True)
-
+        
         randomize(None)
         
         def delayed_assemble():
-            assemble(None)
-
-        timer = threading.Timer(0.3, delayed_assemble)
+           assemble(None)
+        timer = threading.Timer(1, delayed_assemble)
         timer.start()
         
         
 
-        # return ft.Column(
-        #     expand=True,
-        #     alignment=ft.MainAxisAlignment.CENTER,
-        #     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        #     tight=True,
-        #     controls=[
-        #         canvas,
-        #         go_button,
-        #         again_button,
-        #     ],
-        # )
-
-        
         
         return ft.Container(
             expand=True,
@@ -300,6 +286,63 @@ class controls:
                 ],
             ),
         )
+        
+
+    def containers(page: ft.Page):
+        size = 30
+        gap = 3
+        
+        page_width = 15 * (size + gap)
+        page_height = 10 * (size + gap)
+        
+
+        # Número de contenedores
+        num_containers = 15
+        thinks = ft.Stack(
+            width=page_width,
+            height=page_height,
+        )
+        
+        
+        # Generar contenedores aleatorios
+        for _ in range(num_containers):
+            # Posición y tamaño aleatorio
+            x_pos = random.randrange(30, page_width)
+            y_pos = random.randrange(30, page_height)
+            part_size = random.randrange(int(size / 2), int(size * 3))
+
+            # Color aleatorio
+            color = ft.colors.random_color()
+
+            # Crear el contenedor
+            container = ft.Container(
+                width=part_size,
+                height=part_size,
+                bgcolor=color,
+                border_radius= 10,
+                left=x_pos,
+                top=y_pos,
+                opacity=0.05
+            )
+
+            # Añadir contenedor a la página
+            thinks.controls.append(container)
+        thinks.scale = 4
+            
+        return ft.Container(
+            alignment=ft.alignment.center,
+            expand=True,
+            bgcolor=ft.colors.TRANSPARENT,
+            padding=10,
+            content=ft.Column(
+                tight=True,
+                controls=[
+                    thinks,
+                ],
+            ),
+        )
+
+    # Ejecutar la app
 
 
 

@@ -259,6 +259,7 @@ def ley_de_snell(page: ft.Page) -> ft.View:
     stack = ft.Stack(
         [
             controls.background(ft.Container),
+            controls.containers(page),
             content,
         ],expand=True
     )

@@ -182,6 +182,7 @@ def main_valor_resistencia(page: ft.Page) -> ft.View:
     stack = ft.Stack(
         [
             controls.background(ft.Container),
+            controls.containers(page),
             content,
         ],expand=True
     )

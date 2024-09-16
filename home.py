@@ -72,6 +72,7 @@ def home(page: ft.Page) -> ft.View:
     stack = ft.Stack(
         [
             ct.background(ft.Container),
+            ct.containers(page),
             ct.example(page=page),
             content,
         ],expand=True

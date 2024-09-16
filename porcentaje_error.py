@@ -76,6 +76,7 @@ def porcentaje_error(page: ft.Page) -> ft.View:
     stack = ft.Stack(
         [
             ct.background(ft.Container),
+            ct.containers(page),
             content,
         ],expand=True
     )

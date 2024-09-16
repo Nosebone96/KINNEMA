@@ -344,6 +344,7 @@ def main_MRUV(page: ft.Page):
     stack = ft.Stack(
         [
             controls.background(ft.Container),
+            controls.containers(page),
             content,
         ],expand=True
     )

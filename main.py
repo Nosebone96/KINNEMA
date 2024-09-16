@@ -40,11 +40,11 @@ def main(page: ft.Page) -> ft.Page:
         elif page.route == "/MAS":
             page.views.append(mas.main_mas(page))
         elif page.route == "/Ley_de_snell":
-            page.views.append(ley_de_snell.ley_de_snell(page)) 
+            page.views.append(ley_de_snell.ley_de_snell(page))
         elif page.route == "/ley_de_coulomb":
             page.views.append(ley_de_coulomb.ley_de_coulomb(page))
         elif page.route == "/Energia_mecanica":
-            page.views.append(Energia_mecanica.main_energia_mecanica(page)) 
+            page.views.append(Energia_mecanica.main_energia_mecanica(page))
         elif page.route == "/Carga_electrica":
             page.views.append(Carga_electrica.Carga_electrica(page)) 
         elif page.route == "/Balanceo_estequiometrico":
