@@ -22,16 +22,16 @@ def home(page: ft.Page) -> ft.View:
 
     # Lista de botones a crear con sus parámetros
     botones = [
-        (ft.icons.SYNC_ALT, 'Movimiento Armonico Simple', '/MAS'),
+        (ft.icons.SYNC_ALT, 'MAS', '/MAS'),
         (ft.icons.SCALE, 'Balanceo Estequiometrico', '/Balanceo_estequiometrico'),
-        (ft.icons.SPEED, 'ir a MRUV (cinematica)', '/MRUV'),
-        (ft.icons.BOLT, 'valor de una resistencia', '/Valor_resistencia'),
+        (ft.icons.SPEED, 'MRUV', '/MRUV'),
+        (ft.icons.BOLT, 'Resistencia', '/Valor_resistencia'),
         (ft.icons.FLASH_ON, 'Energía mecanica', '/Energia_mecanica'),
-        (ft.icons.LINE_WEIGHT, 'Ley de Snell', '/Ley_de_snell'),
+        (ft.icons.LINE_WEIGHT, 'Ley Snell', '/Ley_de_snell'),
         (ft.icons.ELECTRIC_BOLT, 'Carga electrica', '/Carga_electrica'),
-        (ft.icons.COMPARE_ARROWS_ROUNDED, 'Ley de Coulomb', '/ley_de_coulomb'),
+        (ft.icons.COMPARE_ARROWS_ROUNDED, 'Ley Coulomb', '/ley_de_coulomb'),
         (ft.icons.CHANGE_HISTORY, 'Triangulo', '/Triangulo'),
-        (ft.icons.PERCENT, 'porcentaje de error', '/Porcentaje_error')
+        (ft.icons.PERCENT, 'Error', '/Porcentaje_error')
     ]
 
     # Crear filas con dos botones cada una
