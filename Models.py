@@ -263,9 +263,7 @@ class controls:
             page.update()
 
         go_button = ElevatedButton("Go!", on_click=assemble, visible=True)
-        
-        randomize(None)
-        
+                
         def delayed_assemble():
            assemble(None)
         timer = threading.Timer(1, delayed_assemble)
