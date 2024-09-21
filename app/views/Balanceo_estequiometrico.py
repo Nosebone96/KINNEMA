@@ -4,7 +4,7 @@ from models.Models import controls
 
 
 def Balaceo_estequiometrico_main(page: ft.Page) -> ft.View:
-    page.title = "Balanceo de ecuaciones estequiométricas"
+    page.title = "Balancear ecuaciones estequiométricas"
 
     
     input_reactivos = ft.Ref[ft.TextField]()
