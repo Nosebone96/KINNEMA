@@ -1,6 +1,6 @@
 import flet as ft
 import math as m
-from Models import controls
+from models.Models import controls
 
 def ley_de_coulomb(page: ft.Page) -> ft.View:
 

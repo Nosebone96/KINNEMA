@@ -4,7 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
 from plotly.subplots import make_subplots
-from Models import controls
+from models.Models import controls
 
 def main_mas(page: ft.Page) -> ft.View:
     page.title = 'Movimiento Armonico Simple'

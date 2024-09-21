@@ -15,7 +15,7 @@ class controls:
             content=ft.Row(
                 [
                     ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda e: page.go("/")),
-                    ft.Text("KINNEMA", style=ft.Text.style.HEADLINE_SMALL),  # Título del AppBar
+                    ft.Text("KINNEMA"),  # Título del AppBar
                     ft.IconButton(ft.icons.CODE_ROUNDED, url='https://github.com/Nosebone96/KINNEMA'),
                 ],
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,  # Alineación de los elementos

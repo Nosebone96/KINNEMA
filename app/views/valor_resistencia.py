@@ -1,6 +1,6 @@
 import flet as ft
 from flet import colors
-from Models import controls
+from models.Models import controls
 
 def main_valor_resistencia(page: ft.Page) -> ft.View:
     

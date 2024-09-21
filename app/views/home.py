@@ -1,5 +1,5 @@
 import flet as ft
-from Models import controls as ct
+from models.Models import controls as ct
 
 
 def home(page: ft.Page) -> ft.View:

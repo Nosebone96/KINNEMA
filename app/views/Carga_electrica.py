@@ -1,5 +1,5 @@
 import flet as ft
-from Models import controls
+from models.Models import controls
 
 def Carga_electrica(page: ft.Page) -> ft.View:
     page.title = 'Carga electrica'

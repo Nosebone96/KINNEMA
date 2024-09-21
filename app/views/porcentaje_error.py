@@ -1,5 +1,5 @@
 import flet as ft
-from Models import controls as ct
+from models.Models import controls as ct
 
 def porcentaje_error(page: ft.Page) -> ft.View:
     page.title = 'Porcentaje de error'

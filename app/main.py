@@ -1,18 +1,18 @@
 import flet as ft
 
-import home
-import Energia_mecanica
-import Balanceo_estequiometrico 
-import MRUV 
-import valor_resistencia 
-import ley_de_snell 
-import mas 
-import Balanceo_estequiometrico 
-import ley_de_coulomb 
-import Carga_electrica
-import Triangulo
-import porcentaje_error
-from Models import controls as ct
+import views.home as home
+import views.Energia_mecanica as Energia_mecanica
+import views.Balanceo_estequiometrico as Balanceo_estequiometrico 
+import views.MRUV as MRUV 
+import views.valor_resistencia as valor_resistencia 
+import views.ley_de_snell as ley_de_snell 
+import views.mas as mas 
+import views.Balanceo_estequiometrico as Balanceo_estequiometrico 
+import views.ley_de_coulomb as ley_de_coulomb 
+import views.Carga_electrica as Carga_electrica
+import views.Triangulo as Triangulo
+import views.porcentaje_error as porcentaje_error
+from models.Models import controls as ct
 
 import plotly.io as pio
 pio.renderers.default = 'svg'

@@ -3,7 +3,7 @@ import plotly.io as pio
 import plotly.graph_objects as go
 from flet.plotly_chart import PlotlyChart
 import time
-from Models import controls
+from models.Models import controls
 import math as m
 import threading
 
@@ -274,7 +274,7 @@ def main_MRUV(page: ft.Page):
     )
     
     c1 = ft.Container(
-        content=ft.Image(src="moto.png"),
+        content=ft.Image(src="assets\moto.png"),
         width=200,
         height=200,
         top=0,
