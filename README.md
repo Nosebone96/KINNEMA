@@ -1,2 +1,2 @@
 # KINNEMA
-aplicación para resolver problemas de los ejes temáticos abordados en Física y matemáticas del el grado 10° de la I.E Lola Gonzalez
+aplicación para resolver problemas de los ejes temáticos abordados en Física, química y matemáticas de los grados 10° y 11° de la I.E Lola Gonzalez
