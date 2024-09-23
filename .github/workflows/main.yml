@@ -171,7 +171,7 @@ jobs:
         if-no-files-found: warn
         overwrite: false
 
-  build-apk:
+build-apk:
     runs-on: ubuntu-latest
 
     steps:
@@ -185,8 +185,6 @@ jobs:
 
     - name: Install Python Dependencies
       run: |
-        export CFLAGS="-I$(brew --prefix libffi)/include"
-        export LDFLAGS="-L$(brew --prefix libffi)/lib"
         python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
 
@@ -198,12 +196,21 @@ jobs:
     - name: Setup Java JDK
       uses: actions/setup-java@v4.2.1
       with:
-        distribution: 'temurin'
-        java-version: '21'
+        distribution: 'temurin'  # Puedes usar 'adopt' si lo prefieres
+        java-version: '21'       # Asegúrate de tener la versión correcta de Java para Android
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 33            # Elige el nivel de API que necesitas
+        build-tools: '33.0.2'    # Revisa la versión más reciente de las build tools
+        target: 'android-33'     # Versión de Android objetivo
+        ndk: '23.1.7779620'      # Omitir si no necesitas NDK (normalmente para compilación nativa)
 
     - name: Flet Build APK
       run: |
         flutter config --no-analytics
+        flutter pub get
         flet build apk --verbose --build-number=$BUILD_NUMBER --build-version=$BUILD_VERSION
 
     - name: Upload APK Artifact
