@@ -196,30 +196,32 @@ jobs:
     - name: Setup Java JDK
       uses: actions/setup-java@v4.2.1
       with:
-        distribution: 'temurin'  # Puedes usar 'adopt' si lo prefieres
-        java-version: '21'       # Asegúrate de tener la versión correcta de Java para Android
+        distribution: 'temurin'
+        java-version: '21'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
-      with:
-        api-level: 33            # Elige el nivel de API que necesitas
-        build-tools: '33.0.2'    # Revisa la versión más reciente de las build tools
-        target: 'android-33'     # Versión de Android objetivo
-        ndk: '23.1.7779620'      # Omitir si no necesitas NDK (normalmente para compilación nativa)
+    - name: Install Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y lib32stdc++6 lib32z1
+        yes | sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
 
-    - name: Flet Build APK
+    - name: Accept Android SDK licenses
+      run: |
+        yes | sdkmanager --licenses
+
+    - name: Build APK
       run: |
         flutter config --no-analytics
         flutter pub get
-        flet build apk --verbose --build-number=$BUILD_NUMBER --build-version=$BUILD_VERSION
+        flutter build apk --release --verbose --build-number=$BUILD_NUMBER --build-version=$BUILD_VERSION
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4.3.4
+      uses: actions/upload-artifact@v4
       with:
         name: apk-build-artifact
-        path: build/apk
+        path: build/app/outputs/flutter-apk/app-release.apk
         if-no-files-found: warn
-        overwrite: false
+
 
   build-ipa:
     runs-on: macos-latest
