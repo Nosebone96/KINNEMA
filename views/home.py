@@ -31,7 +31,8 @@ def home(page: ft.Page) -> ft.View:
         (ft.icons.ELECTRIC_BOLT, 'Carga electrica', '/Carga_electrica'),
         (ft.icons.COMPARE_ARROWS_ROUNDED, 'Ley Coulomb', '/ley_de_coulomb'),
         (ft.icons.CHANGE_HISTORY, 'Triangulo', '/Triangulo'),
-        (ft.icons.PERCENT, 'Error', '/Porcentaje_error')
+        (ft.icons.PERCENT, 'Error', '/Porcentaje_error'),
+        (ft.icons.ELECTRIC_BOLT_SHARP, 'Ley de Ohm', '/Ley de Ohm'),
     ]
 
     # Crear filas con dos botones cada una

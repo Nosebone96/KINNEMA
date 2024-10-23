@@ -12,6 +12,7 @@ import views.ley_de_coulomb as ley_de_coulomb
 import views.Carga_electrica as Carga_electrica
 import views.Triangulo as Triangulo
 import views.porcentaje_error as porcentaje_error
+import views.ley_de_ohm as ley_de_ohm
 from models.Models import controls as ct
 
 import plotly.io as pio
@@ -43,6 +44,8 @@ def main(page: ft.Page) -> ft.Page:
             page.views.append(ley_de_snell.ley_de_snell(page))
         elif page.route == "/ley_de_coulomb":
             page.views.append(ley_de_coulomb.ley_de_coulomb(page))
+        elif page.route == "/ley_de_ohm":
+            page.views.append(ley_de_ohm.ley_de_ohm(page))
         elif page.route == "/Energia_mecanica":
             page.views.append(Energia_mecanica.main_energia_mecanica(page))
         elif page.route == "/Carga_electrica":
