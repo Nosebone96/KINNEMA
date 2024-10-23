@@ -67,4 +67,4 @@ def main(page: ft.Page) -> ft.Page:
     
 
 if __name__ == '__main__':
-    ft.app(target=main, view=ft.WebView)
+    ft.app(target=main)
