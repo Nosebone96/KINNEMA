@@ -1,7 +1,7 @@
 flet==0.24.1
 flet-core==0.24.1
 flet-runtime==0.24.1
-ninja==1.8.2
+ninja==1.10.2
 matplotlib==3.9.2
 matplotlib-inline==0.1.7
 chempy==0.8.3
