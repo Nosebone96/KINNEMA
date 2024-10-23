@@ -45,7 +45,7 @@ def main(page: ft.Page) -> ft.Page:
         elif page.route == "/ley_de_coulomb":
             page.views.append(ley_de_coulomb.ley_de_coulomb(page))
         elif page.route == "/ley_de_ohm":
-            page.views.append(ley_de_ohm.ley_de_ohm(page))
+           page.views.append(ley_de_ohm.main_ohm_law(page))
         elif page.route == "/Energia_mecanica":
             page.views.append(Energia_mecanica.main_energia_mecanica(page))
         elif page.route == "/Carga_electrica":

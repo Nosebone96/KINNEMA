@@ -5,7 +5,6 @@ from flet.plotly_chart import PlotlyChart
 import numpy as np
 import plotly.graph_objects as go
 
-
 def ley_de_snell(page: ft.Page) -> ft.View:
     page.title = 'Ley de Snell'
     page.scroll = ft.ScrollMode.ALWAYS

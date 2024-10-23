@@ -77,24 +77,51 @@ def main_ohm_law(page: ft.Page):
             ]
         ),
         margin=ft.margin.all(20),
-        padding=ft.padding.all(30)
+        padding=ft.padding.all(30),
     )
 
-    # Agregar el contenido a la página
-    page.add(content_ohm)
+
+    column = ft.Column(
+        controls=[
+            controls.header_page(page),
+            ft.Container(
+                content=content_ohm, 
+                margin= ft.margin.only(top= 10, left= 0, right=0)
+            ),
+        ],
+        width=page.width,
+        height=page.height
+    )
+
+    content = ft.Row(
+        controls=[
+            column
+        ],
+        scroll=ft.ScrollMode.ALWAYS,  # Permite scroll horizontal
+        width=page.width
+    )
+    
+
+    stack = ft.Stack(
+        [
+            controls.background(ft.Container),
+            controls.containers(page),
+            content,
+        ],expand=True
+    )
+    
+    def resized(e):
+        column.width = page.width
+        column.height = page.height
+        content.width = page.width
+        page.update()
+    
+    page.on_resized = resized
 
     return ft.View(
-        "/ley_de_ohm.py",
+        "/ley_de_ohm",
         [
-            ft.Column(
-                controls=[
-                    controls.header_page(page),
-                    ft.Container(
-                        content=content_ohm, 
-                        margin= ft.margin.only(top= 10, left= 0, right=0)
-                    ),
-                ]
-            )
-        ],scroll=True
+            stack,
+        ],padding = 0,
         
     )

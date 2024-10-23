@@ -14,7 +14,7 @@ def home(page: ft.Page) -> ft.View:
                 controls=[
                     ft.Icon(name=icono, color='white'),
                     ft.Text(value=texto, text_align=ft.TextAlign.CENTER),
-                ]
+                ], alignment=ft.MainAxisAlignment.CENTER,
             ),
             expand=True,
             height=50
@@ -32,18 +32,28 @@ def home(page: ft.Page) -> ft.View:
         (ft.icons.COMPARE_ARROWS_ROUNDED, 'Ley Coulomb', '/ley_de_coulomb'),
         (ft.icons.CHANGE_HISTORY, 'Triangulo', '/Triangulo'),
         (ft.icons.PERCENT, 'Error', '/Porcentaje_error'),
-        (ft.icons.ELECTRIC_BOLT_SHARP, 'Ley de Ohm', '/Ley de Ohm'),
+        (ft.icons.PERCENT, 'Ley de Ohm', '/ley_de_ohm'),
     ]
 
     # Crear filas con dos botones cada una
-    filas = [ft.Container(height=100,width=1)]
+    filas = [ft.Container(height=100, width=1)]  # Inicializa la lista de filas
     for i in range(0, len(botones), 2):
-        fila = ft.Row(
-            controls=[
-                crear_boton(*botones[i]),
-                crear_boton(*botones[i + 1]) if i + 1 < len(botones) else None
-            ]
-        )
+        if i + 1 < len(botones):
+            # Si hay un par de botones
+            fila = ft.Row(
+                controls=[
+                    crear_boton(*botones[i]),        # Primer botón
+                    crear_boton(*botones[i + 1])     # Segundo botón (existe)
+                ]
+            )
+        else:
+            # Si es el último botón y no tiene par
+            fila = ft.Row(
+                controls=[
+                    crear_boton(*botones[i]),        # Solo el primer botón
+                    ft.Container()  # Un contenedor vacío como placeholder
+                ]
+            )
         filas.append(fila)
 
     # Crear el layout principal

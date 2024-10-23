@@ -1,7 +1,7 @@
 import flet as ft
 from models.Models import controls
 
-def main_hooke_law(page: ft.Page):
+def main_hooke_law(page: ft.Page) -> ft.View:
     page.scroll = ft.ScrollMode.HIDDEN
 
     # Funciones para calcular la Ley de Hooke
@@ -89,7 +89,7 @@ def main_hooke_law(page: ft.Page):
     page.add(content_hooke)
 
     return ft.View(
-        "/ley_de_hooke.py",
+        "/ley_de_hooke",
         [
             ft.Column(
                 controls=[
