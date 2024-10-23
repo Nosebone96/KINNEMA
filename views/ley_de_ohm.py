@@ -1,5 +1,5 @@
 import flet as ft
-from models.Models import controls
+from models.Models import controls 
 
 def main_ohm_law(page: ft.Page):
     page.scroll = ft.ScrollMode.HIDDEN
@@ -9,9 +9,15 @@ def main_ohm_law(page: ft.Page):
         return amper * resistance
 
     def calculate_amper(voltage, resistance):
+        if resistance == 0:
+            print("La resistencia no puede ser cero.")
+            return None
         return voltage / resistance
 
     def calculate_resistance(amper, voltage):
+        if amper == 0:
+            print("La corriente no puede ser cero.")
+            return None
         return voltage / amper
 
     # Función para realizar el cálculo según los valores ingresados
@@ -28,6 +34,8 @@ def main_ohm_law(page: ft.Page):
                 resistance = float(Resistance_input.value)
                 voltage = float(Voltage_input.value)
                 amper = calculate_amper(voltage, resistance)
+                if amper is None:
+                    return
                 Amper_input.value = f"{amper:.2f}"
                 Voltage_input.value = f"{voltage:.2f}"
                 Resistance_input.value = f"{resistance:.2f}"
@@ -35,14 +43,16 @@ def main_ohm_law(page: ft.Page):
                 voltage = float(Voltage_input.value)
                 amper = float(Amper_input.value)
                 resistance = calculate_resistance(amper, voltage)
+                if resistance is None:
+                    return
                 Amper_input.value = f"{amper:.2f}"
                 Voltage_input.value = f"{voltage:.2f}"
                 Resistance_input.value = f"{resistance:.2f}"
             else:
-                print("Invalid values")
+                print("Valores inválidos")
                 return
         except ValueError as e:
-            print("Invalid values, failed")
+            print(f"Valores inválidos, error: {e}")
             return
 
         # Asegurar que los campos se actualicen en la interfaz
@@ -73,7 +83,8 @@ def main_ohm_law(page: ft.Page):
                 Amper_input,
                 Voltage_input,
                 Resistance_input,
-                controls.Buttons(Calcular=calcular_ohm, Limpiar= clean_ohm_law, e=ft.Container),
+                ft.ElevatedButton(text="Calcular", on_click=calcular_ohm),
+                ft.ElevatedButton(text="Limpiar", on_click=clean_ohm_law)
             ]
         ),
         margin=ft.margin.all(20),
@@ -82,7 +93,6 @@ def main_ohm_law(page: ft.Page):
 
     # Agregar el contenido a la página
     page.add(content_ohm)
-
     return ft.View(
         "/ley_de_ohm.py",
         [
