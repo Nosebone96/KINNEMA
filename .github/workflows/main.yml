@@ -177,10 +177,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
     - name: Setup Flutter ${{ env.FLUTTER_VERSION }}
       uses: subosito/flutter-action@v2
       with:
         flutter-version: ${{ env.FLUTTER_VERSION }}
+
+    # Instalar dependencias para Android SDK
+    - name: Install Android SDK Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y lib32stdc++6 lib32z1 libgtk-3-dev
+        sudo apt-get install -y android-sdk adb
 
     - name: Setup Java JDK
       uses: actions/setup-java@v4.2.1
@@ -188,10 +196,14 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
+    - name: Accept Android SDK Licenses
+      run: yes | sdkmanager --licenses
+
     - name: Flet Build APK
       run: |
         flutter config --no-analytics
         flet build apk --verbose --build-number=$BUILD_NUMBER --build-version=$BUILD_VERSION
+
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4.3.4
       with:
