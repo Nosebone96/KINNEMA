@@ -13,6 +13,7 @@ import views.Carga_electrica as Carga_electrica
 import views.Triangulo as Triangulo
 import views.porcentaje_error as porcentaje_error
 import views.ley_de_ohm as ley_de_ohm
+import views.efecto_doppler as efecto_doppler
 from models.Models import controls as ct
 
 import plotly.io as pio
@@ -56,6 +57,8 @@ def main(page: ft.Page) -> ft.Page:
             page.views.append(Triangulo.main_triangulo(page))
         elif page.route == "/Porcentaje_error":
             page.views.append(porcentaje_error.porcentaje_error(page))
+        elif page.route == "/efecto_doppler":
+            page.views.append(efecto_doppler.main_doppler(page))
         page.update()
             
     def view_pop(view):

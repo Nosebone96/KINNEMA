@@ -33,6 +33,7 @@ def home(page: ft.Page) -> ft.View:
         (ft.icons.CHANGE_HISTORY, 'Triangulo', '/Triangulo'),
         (ft.icons.PERCENT, 'Error', '/Porcentaje_error'),
         (ft.icons.PERCENT, 'Ley de Ohm', '/ley_de_ohm'),
+        (ft.icons.PERCENT, 'Efecto Doppler', '/efecto_doppler'),
     ]
 
     # Crear filas con dos botones cada una
