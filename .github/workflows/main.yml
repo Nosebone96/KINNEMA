@@ -196,9 +196,6 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Accept Android SDK Licenses
-      run: yes | sdkmanager --licenses
-
     - name: Flet Build APK
       run: |
         flutter config --no-analytics
