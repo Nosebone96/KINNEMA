@@ -1,5 +1,4 @@
 import flet as ft
-
 import views.home as home
 import views.Energia_mecanica as Energia_mecanica
 import views.Balanceo_estequiometrico as Balanceo_estequiometrico 
@@ -15,7 +14,6 @@ import views.porcentaje_error as porcentaje_error
 import views.ley_de_ohm as ley_de_ohm
 import views.efecto_doppler as efecto_doppler
 from models.Models import controls as ct
-
 import plotly.io as pio
 pio.renderers.default = 'svg'
 from plotly.graph_objects import *
